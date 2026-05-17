@@ -129,6 +129,18 @@ SCANNING_OBJECTIVE...
 **Q:** `¿Qué métodos de integración son soportados?`
 **A:** `REST API, GraphQL, Webhooks, gRPC y conectores nativos para los principales frameworks de automatización.`
 
+### Pregunta 4
+**Q:** `¿Puedo cancelar mi suscripción?`
+**A:** `Puedes cancelar en cualquier momento desde tu panel de control. Tu acceso continuará hasta el final del período pagado. No hay contratos a largo plazo ni penalizaciones.`
+
+### Pregunta 5
+**Q:** `¿El plan Enterprise incluye soporte dedicado?`
+**A:** `Sí, el plan Enterprise incluye un Customer Success Manager asignado, soporte prioritario 24/7 por chat, email y teléfono, además de sesiones de onboarding personalizadas para tu equipo.`
+
+### Pregunta 6
+**Q:** `¿Los precios incluyen impuestos?`
+**A:** `Los precios mostrados no incluyen impuestos locales. El IVA u otros impuestos aplicables se calcularán automáticamente durante el checkout según tu país de residencia.`
+
 ---
 
 ## 🔻 FOOTER

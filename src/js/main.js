@@ -2,6 +2,7 @@ import { initMotionEngine } from './core/motion-engine.js';
 import { initHeroReveal } from './animations/hero-reveal.js';
 import { initNavbarMotion } from './animations/navbar-motion.js';
 import { initTelemetry } from './core/telemetry.js';
+import { initFaq } from './faq.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Initialize ANTARES Motion Engine
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavbarMotion();
     initHeroReveal();
     initTelemetry();
+    initFaq();
 
     // 2. Legacy Reveal System (Keep for Pricing/FAQ for now)
     const revealCallback = (entries, observer) => {
@@ -67,39 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 5. FAQ Logic
-    const faqContainer = document.getElementById('faq-container');
-    const faqs = [
-        { q: "¿Puedo escalar mi configuración en cualquier momento?", a: "Affirmative. La arquitectura permite escalar recursos de ejecución sin migración. Los cambios se aplican de forma inmediata." },
-        { q: "¿Ofrecen período de evaluación?", a: "Todos los protocolos incluyen 14 días de acceso completo al sistema de orquestación." },
-        { q: "¿Qué métodos de integración son soportados?", a: "Soportamos REST API, GraphQL, Webhooks, gRPC y conectores nativos." },
-        { q: "¿Hay compromisos de permanencia?", a: "La arquitectura está diseñada para operación libre. Sin contratos a largo plazo." }
-    ];
+    // 5. FAQ Accordion dynamic engine loaded modularly from faq.js
 
-    if (faqContainer) {
-        faqs.forEach((faq, index) => {
-            const item = document.createElement('div');
-            item.className = 'faq-item reveal';
-            
-            item.innerHTML = `
-                <button type="button" class="faq-question" aria-expanded="false">
-                    <span>${faq.q}</span>
-                    <span class="faq-icon" aria-hidden="true">↓</span>
-                </button>
-                <div class="faq-answer">
-                    <div class="faq-answer-content">${faq.a}</div>
-                </div>
-            `;
-
-            const question = item.querySelector('.faq-question');
-            question.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
-                if (!isActive) item.classList.add('active');
-            });
-
-            faqContainer.appendChild(item);
-            revealObserver.observe(item);
-        });
-    }
 });
