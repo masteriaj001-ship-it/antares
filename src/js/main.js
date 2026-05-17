@@ -33,31 +33,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Navigation UI Logic migrated to navbar-motion.js
 
-    // 4. Pricing Logic
+    // 4. Pricing Logic (Premium V2)
     const pricingCards = document.querySelectorAll('.pricing-card');
-    const toggleSwitch = document.querySelector('.toggle-switch');
-    const billingLabels = document.querySelectorAll('.billing-label');
-    const priceAmounts = document.querySelectorAll('.amount');
+    const toggleButtons = document.querySelectorAll('.pricing-toggle-btn');
+    const priceAmounts = document.querySelectorAll('.pricing-amount');
+    let currentBilling = 'monthly';
+    let isTransitioning = false;
 
-    if (toggleSwitch) {
-        toggleSwitch.addEventListener('click', () => {
-            const isAnnual = toggleSwitch.classList.toggle('annual');
-            const currentBilling = isAnnual ? 'annual' : 'monthly';
+    if (toggleButtons.length > 0) {
+        toggleButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                if (isTransitioning) return;
+                isTransitioning = true;
+                setTimeout(() => { isTransitioning = false; }, 250);
 
-            toggleSwitch.setAttribute('aria-pressed', isAnnual);
+                const newBilling = btn.dataset.billing;
+                if (newBilling === currentBilling) return;
+                
+                currentBilling = newBilling;
 
-            billingLabels.forEach(label => {
-                label.classList.toggle('active', label.dataset.billing === currentBilling);
-            });
+                toggleButtons.forEach(b => {
+                    b.classList.toggle('active', b.dataset.billing === currentBilling);
+                });
 
-            priceAmounts.forEach(amount => {
-                amount.style.opacity = '0';
-                amount.style.transform = 'translateY(10px)';
-                setTimeout(() => {
-                    amount.textContent = amount.dataset[currentBilling];
-                    amount.style.opacity = '1';
-                    amount.style.transform = 'translateY(0)';
-                }, 200);
+                priceAmounts.forEach(amount => {
+                    amount.classList.add('changing');
+                    setTimeout(() => {
+                        amount.textContent = amount.dataset[currentBilling];
+                        amount.classList.remove('changing');
+                        amount.classList.add('visible');
+                        setTimeout(() => {
+                            amount.classList.remove('visible');
+                        }, 150);
+                    }, 150);
+                });
             });
         });
     }

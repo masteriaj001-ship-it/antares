@@ -195,10 +195,19 @@
         </div>
 
         <section class="section faq reveal" id="contacto">
-            <div class="container">
-                <h2>Protocolo de Consulta</h2>
-                <p>Información operativa para evaluar compatibilidad con tu infraestructura.</p>
-                <div class="faq-container" id="faq-container"></div>
+            <div class="faq-layout">
+                <div class="faq-sidebar">
+                    <h2 class="faq-title">Preguntas Frecuentes</h2>
+                    <p class="faq-subtitle">Encuentra respuestas claras sobre nuestros protocolos de automatización e integración.</p>
+                    <div class="faq-cta-card">
+                        <h3 class="faq-cta-title">¿Aún tienes preguntas?</h3>
+                        <p class="faq-cta-description">No encuentras la respuesta? Envíanos un email y te responderemos.</p>
+                        <a href="mailto:contacto@antares.soft" class="faq-cta-button">ENVIAR EMAIL</a>
+                    </div>
+                </div>
+                <div class="faq-accordion">
+                    <div class="faq-container" id="faq-container"></div>
+                </div>
             </div>
         </section>
 
@@ -216,14 +225,14 @@
                         <a href="#" class="link">Ver capacidades →</a>
                     </div>
                     <div class="card feature-card">
-                        <div class="feature-icon">⬢</div>
+                        <div class="feature-icon">◇</div>
                         <h3>Autonomous Execution</h3>
                         <p>Capas de ejecución autónoma con recuperación automática y gestión de estados persistentes.
                         </p>
                         <a href="#" class="link">Ver capacidades →</a>
                     </div>
                     <div class="card feature-card">
-                        <div class="feature-icon">⬧</div>
+                        <div class="feature-icon">◈</div>
                         <h3>Adaptive Intelligence</h3>
                         <p>Sistemas de aprendizaje dinámico que optimizan workflows según patrones de uso real.</p>
                         <a href="#" class="link">Ver capacidades →</a>
@@ -279,68 +288,65 @@
 
         <section class="section pricing reveal" id="catalogo">
             <div class="container">
-                <h2>Configuraciones de Protocolo</h2>
-                <p>Escala tu infraestructura de automatización según los requerimientos de tu operación.</p>
-
-                <div class="billing-toggle" role="group" aria-label="Selector de facturación">
-                    <span class="billing-label active" data-billing="monthly">Mensual</span>
-                    <button class="toggle-switch" aria-pressed="false" aria-label="Cambiar facturación a anual">
-                        <span class="toggle-knob"></span>
-                    </button>
-                    <span class="billing-label" data-billing="annual">Anual</span>
+                <div class="pricing-toggle">
+                    <div class="pricing-toggle-buttons">
+                        <button class="pricing-toggle-btn active" data-billing="monthly">MENSUAL</button>
+                        <button class="pricing-toggle-btn" data-billing="annual">ANUAL</button>
+                    </div>
+                    <span class="pricing-badge">AHORRA 20%</span>
                 </div>
 
                 <div class="pricing-grid stagger-reveal">
                     <!-- Card Starter -->
-                    <div class="card pricing-card" data-plan="starter">
+                    <div class="pricing-card" data-plan="starter">
                         <div class="pricing-header">
-                            <h3 class="plan-name">Essencial</h3>
-                            <div class="plan-price">
-                                <span class="amount" data-monthly="$9" data-annual="$7">$9</span>
-                                <span class="period">/mes</span>
+                            <h3 class="pricing-plan-name">ESSENCIAL</h3>
+                            <div class="pricing-price">
+                                <span class="pricing-amount" data-monthly="$9" data-annual="$7">$9</span>
+                                <span class="pricing-period">/mes</span>
                             </div>
                         </div>
-                        <ul class="feature-list">
-                            <li>5 Workflows simultáneos</li>
+                        <ul class="pricing-features">
+                            <li>5 Workflows</li>
                             <li>API estándar</li>
-                            <li class="disabled">Colas prioritas</li>
+                            <li class="disabled">Colas prioritarias</li>
                         </ul>
-                        <button class="btn btn-secondary select-plan">Iniciar Essencial</button>
+                        <a href="#" class="pricing-cta pricing-cta-secondary">Iniciar Essencial</a>
                     </div>
 
                     <!-- Card Pro (Recomendado) -->
-                    <div class="card pricing-card recommended" data-plan="pro">
-                        <div class="popular-badge">Recomendado</div>
+                    <div class="pricing-card recommended" data-plan="pro">
+                        <span class="pricing-badge-recommended">RECOMENDADO</span>
                         <div class="pricing-header">
-                            <h3 class="plan-name">Advanced</h3>
-                            <div class="plan-price">
-                                <span class="amount" data-monthly="$29" data-annual="$23">$29</span>
-                                <span class="period">/mes</span>
+                            <h3 class="pricing-plan-name">ADVANCED</h3>
+                            <div class="pricing-price">
+                                <span class="pricing-amount" data-monthly="$29" data-annual="$23">$29</span>
+                                <span class="pricing-period">/mes</span>
                             </div>
                         </div>
-                        <ul class="feature-list">
+                        <ul class="pricing-features">
                             <li>Workflows ilimitados</li>
                             <li>API prioritaria</li>
-                            <li>Colas de ejecución prioritaria</li>
+                            <li>Colas prioritarias</li>
                         </ul>
-                        <button class="btn btn-primary select-plan">Iniciar Advanced</button>
+                        <a href="#" class="pricing-cta pricing-cta-primary">Iniciar Advanced</a>
                     </div>
 
                     <!-- Card Enterprise -->
-                    <div class="card pricing-card" data-plan="enterprise">
+                    <div class="pricing-card" data-plan="enterprise">
                         <div class="pricing-header">
-                            <h3 class="plan-name">Enterprise</h3>
-                            <div class="plan-price">
-                                <span class="amount" data-monthly="$99" data-annual="$79">$99</span>
-                                <span class="period">/mes</span>
+                            <h3 class="pricing-plan-name">ENTERPRISE</h3>
+                            <div class="pricing-price">
+                                <span class="pricing-amount" data-monthly="$99" data-annual="$79">$99</span>
+                                <span class="pricing-period">/mes</span>
                             </div>
                         </div>
-                        <ul class="feature-list">
+                        <ul class="pricing-features">
                             <li>Infraestructura dedicada</li>
                             <li>Soporte 24/7</li>
-                            <li>Consultoría de implementación</li>
+                            <li>Consultoría</li>
                         </ul>
-                        <button class="btn btn-secondary select-plan">Iniciar Enterprise</button>
+                        <a href="#" class="pricing-cta pricing-cta-secondary">Iniciar Enterprise</a>
                     </div>
                 </div>
             </div>

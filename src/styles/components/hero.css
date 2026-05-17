@@ -32,6 +32,7 @@
     align-items: center;
     text-align: left;
     /* Alineado a la izquierda */
+    background: radial-gradient(ellipse at 70% 50%, rgba(99,102,241,0.06) 0%, transparent 60%), var(--bg-primary);
 }
 
 @media (min-width: 1024px) {

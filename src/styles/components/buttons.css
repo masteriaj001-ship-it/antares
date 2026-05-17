@@ -23,28 +23,25 @@
 }
 
 .btn-primary {
-    background: var(--color-primary);
-    color: var(--color-primary-dark);
-    border: 1px solid var(--color-primary);
+    background: var(--accent-indigo);
+    color: #ffffff;
+    border: none;
+    box-shadow: 0 4px 16px rgba(99,102,241,0.3);
 }
 
 .btn-secondary {
     background: transparent;
-    border: 1px solid var(--color-outline-variant);
     color: var(--color-text-main);
+    border: 1px solid rgba(255,255,255,0.2);
 }
 
 .btn-primary:hover {
-    background: #ffffff;
-    border-color: #ffffff;
-    color: var(--color-bg-deep);
-    box-shadow: 0 0 16px rgba(184, 195, 255, 0.4); /* Brillo interactivo premium */
-    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(99,102,241,0.5);
+    transform: translateY(-2px);
 }
 
 .btn-secondary:hover {
-    background: rgba(184, 195, 255, 0.05);
-    border-color: var(--color-primary);
-    color: var(--color-primary);
-    transform: translateY(-1px);
+    background: rgba(255,255,255,0.05);
+    border-color: rgba(255,255,255,0.3);
+    transform: translateY(-2px);
 }
