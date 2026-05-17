@@ -205,7 +205,8 @@
 }
 
 /* ==========================================================================
-   SHARED TABLET & DESKTOP STYLES (≥ 768px)
+   UNIFIED RESPONSIVE GRID LAYOUT (≥ 768px)
+   Tablet and Desktop share the same perfect 3-column symmetrical grid
    ========================================================================== */
 @media (min-width: 768px) {
     .mobile-only {
@@ -235,51 +236,8 @@
         height: 48px; /* HP-05 & RB-04: Altura exacta de 48px */
         box-sizing: border-box;
     }
-}
 
-/* ==========================================================================
-   TABLET SPECIFIC LAYOUT (768px - 1199px)
-   ========================================================================== */
-@media (min-width: 768px) and (max-width: 1199px) {
-    .navbar-content {
-        height: auto; /* Permite doble fila en Tablet */
-        padding: 12px 24px;
-    }
-
-    /* HP-04: Tablet layout flow - Double Row */
-    .navbar-links-container {
-        display: flex;
-        flex-direction: row; /* Flex horizontal */
-        flex-wrap: wrap; /* Permitir envolver */
-        justify-content: center;
-        align-items: center;
-        gap: 1rem 2rem; /* Gap vertical y horizontal */
-        width: 100%;
-    }
-
-    /* Forzar logo a fila superior centrada */
-    .nav-center {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        order: -1; /* Mueve logo arriba */
-    }
-
-    /* 4 enlaces en fila horizontal centrada debajo */
-    .navbar-links {
-        display: flex;
-        flex-direction: row;
-        gap: 2rem;
-        justify-content: center;
-    }
-}
-
-/* ==========================================================================
-   DESKTOP SPECIFIC LAYOUT (≥ 1200px)
-   ========================================================================== */
-@media (min-width: 1200px) {
-    /* HP-05: Grid de 3 columnas para simetría perfecta */
+    /* --- HP-05: Symmetrical 3-Column Grid for Tablet & Desktop --- */
     .navbar-links-container {
         display: grid;
         grid-template-columns: 1fr auto 1fr;
@@ -293,24 +251,41 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        order: 0; /* Restaurar orden natural en el grid */
+        order: 0; /* Orden natural del grid */
     }
 
-    /* Distribución a izquierda (alineado derecha) y derecha (alineado izquierda) */
-    .navbar-links.nav-left {
+    /* Align links horizontally, overriding the mobile column layout */
+    .navbar-nav .navbar-links {
         display: flex;
+        flex-direction: row !important; /* Forzar fila horizontal */
+        gap: 1.25rem; /* Gap compacto para tablet */
+    }
+
+    .navbar-nav .navbar-links.nav-left {
         justify-content: flex-end;
-        padding-right: 3rem;
-        flex-direction: row;
-        gap: 2rem;
+        padding-right: 1.5rem;
     }
 
-    .navbar-links.nav-right {
-        display: flex;
+    .navbar-nav .navbar-links.nav-right {
         justify-content: flex-start;
-        padding-left: 3rem;
-        flex-direction: row;
-        gap: 2rem;
+        padding-left: 1.5rem;
+    }
+}
+
+/* ==========================================================================
+   DESKTOP OPTIMIZATIONS (≥ 1200px)
+   ========================================================================== */
+@media (min-width: 1200px) {
+    .navbar-nav .navbar-links {
+        gap: 2.5rem; /* Enlaces más separados en pantallas grandes */
+    }
+
+    .navbar-nav .navbar-links.nav-left {
+        padding-right: 3rem; /* Mayor espacio lateral en desktop */
+    }
+
+    .navbar-nav .navbar-links.nav-right {
+        padding-left: 3rem; /* Mayor espacio lateral en desktop */
     }
 }
 
