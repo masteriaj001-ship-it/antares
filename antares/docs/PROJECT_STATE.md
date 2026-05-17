@@ -1,9 +1,10 @@
-## Current Status (v1.3 - Responsive Stabilization Complete)
+## Current Status (v1.4 - Hero Layout Refactored)
 
 - [x] **P0 Hotfix Resolvido:** Navbar unificada responsivamente en grid horizontal de 3 columnas para Tablet y Desktop.
+- [x] **Hero Section Refactorizada:** Implementada estrategia Mobile-First pura, eliminando `max-width` hacks e implementando separación inteligente (`margin-left: max(10%, 160px)`) para evitar cualquier superposición con el indicador de scroll fixed en escritorio.
 - [x] Navbar responsive blindada (Drawer system + Z-index 9999 en mobile + Clean Static Grid en tablet/desktop)
 - [x] Enlaces horizontales continuos y logotipo centrado geométricamente (cero solapamiento en Tablet)
-- [x] Hero section refactorizada (Editorial Tech + Clamp Typography)
+- [x] Hero section visualmente impecable en todos los breakpoints (320px, 768px, 1024px, 1440px)
 - [x] Sistema de Spacing Responsivo (Tokens dinámicos @media standard)
 - [x] Pricing section estabilizada (Mobile-first, no overflow)
 - [x] Toggle mensual/anual funcional con ARIA landmarks
