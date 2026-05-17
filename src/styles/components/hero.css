@@ -65,7 +65,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 64px;
+    margin-left: 0; /* Base Mobile: sin offset */
     margin-top: 8vh;
     gap: 2rem;
     position: relative;
@@ -75,13 +75,13 @@
 
 @media (min-width: 768px) {
     .hero-content {
-        margin-left: 10%;
+        margin-left: 10%; /* Tablet: offset */
     }
+}
 
-    .visual-frame {
-        margin-top: 100px;
-        max-width: 55%;
-        min-height: auto;
+@media (min-width: 1024px) {
+    .hero-content {
+        margin-left: max(10%, 160px); /* Desktop: garantiza separación de la columna del indicador fixed */
     }
 }
 
@@ -94,15 +94,6 @@
 
 .tactical-meta.pulse {
     animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-
-@media (max-width: 767px) {
-    .hero-content {
-        margin-left: 0px;
-    }
-
-    /* Estos estilos se aplicarán SOLO en móviles */
 }
 
 
@@ -232,6 +223,12 @@
     min-height: auto;
 }
 
+@media (min-width: 768px) {
+    .visual-frame {
+        margin-top: 100px;
+    }
+}
+
 /* Scanning Laser Line */
 .hud-scanner-line {
     position: absolute;
@@ -359,19 +356,18 @@
 
 /* Page Scroll Indicator */
 .scroll-indicator {
-    position: fixed;
-    bottom: 64px;
-    left: 24px;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    z-index: 50;
+    display: none; /* Mobile & Tablet: oculto para evitar colisiones y superposición */
 }
 
 @media (min-width: 1024px) {
     .scroll-indicator {
-        left: 88px;
-        /* 64px sidebar + 24px gap */
+        display: flex; /* Desktop: visible al lado del sidebar */
+        position: fixed;
+        bottom: 64px;
+        left: 88px; /* 64px sidebar + 24px gap */
+        align-items: center;
+        gap: 1rem;
+        z-index: 50;
     }
 }
 
