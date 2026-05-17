@@ -11,6 +11,7 @@
 - [x] **Motion System (Leyes de la física ANTARES documentadas)**
 - [x] **Layout Constraints (Contrato de diseño inquebrantable)**
 - [x] **Arquitectura Semántica (Main/Footer + SEO Estructural)**
+- [x] **FAQ Accordion Refactorizado:** Implementación de FAQ dinámico bajo el Hero, accesible (ARIA), interactivo con protección de spam clicks y estrategia mobile-first limpia (SP-01 Fallback para no-JS).
 - [x] Footer Premium implementado y estilizado
 
 ---
