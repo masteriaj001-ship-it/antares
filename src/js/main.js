@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         rootMargin: '0px 0px -50px 0px'
     });
 
-    document.querySelectorAll('.pricing .reveal, .faq .reveal').forEach(el => {
+    document.querySelectorAll('.reveal, .stagger-reveal').forEach(el => {
         revealObserver.observe(el);
     });
 
