@@ -47,8 +47,10 @@ Y el overlay desaparece
 DADO QUE el usuario está en tablet (viewport 768px–1199px)
 CUANDO la página carga
 ENTONCES el drawer mobile NO se usa
-Y el logo "ANTARES" aparece en su propia fila centrada arriba (order: -1, width: 100%)
-Y los 4 enlaces están debajo del logo en una fila horizontal centrada (flex-wrap, justify-content: center)
+Y el navbar tiene una altura fija de 48px
+Y el layout usa un grid de 3 columnas: [nav-left] [nav-center] [nav-right]
+Y los 4 enlaces están a los lados alineados horizontalmente en una sola fila continua
+Y el logotipo "ANTARES" está centrado en el medio
 Y el toggle hamburguesa NO es visible (display: none via .mobile-only)
 ```
 
@@ -56,12 +58,10 @@ Y el toggle hamburguesa NO es visible (display: none via .mobile-only)
 ```gherkin
 DADO QUE el usuario está en desktop (viewport ≥ 1200px)
 CUANDO la página carga
-ENTONCES el navbar tiene altura fija de 48px
-Y el layout usa grid de 3 columnas: [nav-left] [nav-center] [nav-right]
-Y a la izquierda están: SYSTEMS, OPERATIONS
-Y al centro está el logo ANTARES con el símbolo ॥ (icon-pause) precediendo
-Y a la derecha están: INTELLIGENCE, CONTACT
-Y el logo queda perfectamente centrado por la columna central del grid
+ENTONCES el navbar tiene una altura fija de 48px
+Y el layout usa el mismo grid simétrico de 3 columnas
+Y la separación (gap) de los enlaces y paddings laterales aumentan (gap: 2.5rem, padding-lateral: 3rem)
+Y el logotipo "ANTARES" precedido de ॥ queda bloqueado en el centro del viewport
 ```
 
 ### HP-06: Hover sobre enlaces
