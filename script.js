@@ -18,53 +18,79 @@ document.addEventListener('DOMContentLoaded', () => {
         revealObserver.observe(el);
     });
 
-    // --- Navigation ---
+    // --- Navigation (Implementación de navbar.spec.md v1.0) ---
     const navbar = document.querySelector('.navbar');
     const toggle = document.querySelector('.navbar-toggle');
     const overlay = document.querySelector('.nav-overlay');
+    let isMenuAnimating = false; // SP-01: Flag para prevenir spam de clics
+
+    const closeMobileMenu = () => {
+        if (!navbar) return;
+        navbar.classList.remove('open');
+        if (toggle) {
+            toggle.classList.remove('active');
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.setAttribute('aria-label', 'Abrir menú');
+        }
+        document.body.classList.remove('no-scroll');
+    };
 
     if (toggle && navbar) {
         toggle.addEventListener('click', () => {
+            // SP-01: Protección contra doble clic rápido
+            if (isMenuAnimating) return;
+            isMenuAnimating = true;
+
             const isOpen = navbar.classList.toggle('open');
             toggle.classList.toggle('active');
+            
+            // RB-05 & HP-05: Actualizar atributos de accesibilidad
             toggle.setAttribute('aria-expanded', isOpen);
+            toggle.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
             document.body.classList.toggle('no-scroll', isOpen);
+
+            // Bloquear clics durante la animación del drawer (600ms de transición CSS)
+            setTimeout(() => {
+                isMenuAnimating = false;
+            }, 600);
         });
     }
 
     if (overlay) {
         overlay.addEventListener('click', () => {
-            navbar.classList.remove('open');
-            toggle.classList.remove('active');
-            toggle.setAttribute('aria-expanded', 'false');
-            document.body.classList.remove('no-scroll');
+            if (isMenuAnimating) return;
+            closeMobileMenu();
         });
     }
 
     const closeBtn = document.querySelector('.nav-close');
     if (closeBtn) {
         closeBtn.addEventListener('click', () => {
-            navbar.classList.remove('open');
-            toggle.classList.remove('active');
-            toggle.setAttribute('aria-expanded', 'false');
-            document.body.classList.remove('no-scroll');
+            closeMobileMenu();
         });
     }
 
+    // HP-07: Comportamiento scrolled con opacidad y borde
     window.addEventListener('scroll', () => {
+        if (!navbar) return;
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
-    });
+    }, { passive: true });
 
+    // SP-02: Cerrar menú mobile en redimensionamiento de pantalla (≥ 768px)
+    window.addEventListener('resize', () => {
+        if (window.innerWidth >= 768 && navbar && navbar.classList.contains('open')) {
+            closeMobileMenu();
+        }
+    }, { passive: true });
+
+    // Cerrar menú mobile al hacer clic en enlaces
     document.querySelectorAll('.navbar-links a').forEach(link => {
         link.addEventListener('click', () => {
-            navbar.classList.remove('open');
-            toggle.classList.remove('active');
-            toggle.setAttribute('aria-expanded', 'false');
-            document.body.classList.remove('no-scroll');
+            closeMobileMenu();
         });
     });
 

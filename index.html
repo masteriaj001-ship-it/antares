@@ -30,6 +30,44 @@
         // Esto garantiza que la regla "no ocultar por CSS permanentemente" se respete.
         setTimeout(() => document.documentElement.classList.remove('js-loading'), 2500);
     </script>
+    <!-- SP-03: Fallback gracioso para navegadores sin JavaScript habilitado -->
+    <noscript>
+        <style>
+            .navbar-nav {
+                position: static !important;
+                transform: none !important;
+                width: 100% !important;
+                height: auto !important;
+                padding: 10px 0 !important;
+                background: var(--color-bg-deep, #121314) !important;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+            }
+            .navbar-toggle {
+                display: none !important;
+            }
+            .navbar-links {
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: center !important;
+                gap: 1.5rem !important;
+            }
+            .navbar-links-container {
+                flex-direction: row !important;
+                justify-content: center !important;
+            }
+            html.js-loading .hero h1,
+            html.js-loading .tactical-meta,
+            html.js-loading .hero-description,
+            html.js-loading .hero .btn-group,
+            html.js-loading .hero-technical-footer,
+            html.js-loading .hero-visual,
+            html.js-loading .scroll-indicator,
+            html.js-loading .navbar {
+                visibility: visible !important;
+            }
+        </style>
+    </noscript>
 </head>
 
 <body>
