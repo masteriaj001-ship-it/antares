@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>landing page</title>
+    <!-- ANTARES Design System Modules -->
+    <link rel="stylesheet" href="src/styles/main.css">
+
+    <!-- Anti-FOUC System (Flash of Unstyled Content) -->
+    <style>
+        /* Oculta los elementos visuales SOLO si JS está habilitado y cargando */
+        html.js-loading .hero h1,
+        html.js-loading .tactical-meta,
+        html.js-loading .hero-description,
+        html.js-loading .hero .btn-group,
+        html.js-loading .hero-technical-footer,
+        html.js-loading .hero-visual,
+        html.js-loading .scroll-indicator,
+        html.js-loading .navbar {
+            visibility: hidden;
+        }
+    </style>
+    <script>
+        // 1. Añadir clase de bloqueo inmediatamente antes de que el DOM pinte el frame
+        document.documentElement.classList.add('js-loading');
+
+        // 2. Failsafe: Si Vite falla o el bundle se bloquea, libera la UI en 2.5s
+        // Esto garantiza que la regla "no ocultar por CSS permanentemente" se respete.
+        setTimeout(() => document.documentElement.classList.remove('js-loading'), 2500);
+    </script>
+</head>
+
+<body>
+    <!-- Sidebar Operacional (Global Izquierda) -->
+    <aside class="global-sidebar">
+        <div class="sidebar-icons">
+            <span class="icon active">⬚</span> <!-- Reemplazo temporal para el grid_view -->
+            <span class="icon">⎍</span>
+            <span class="icon">⑆</span>
+            <span class="icon">✉</span>
+        </div>
+    </aside>
+
+    <div class="nav-overlay"></div>
+    <header class="navbar">
+        <div class="navbar-content">
+            <!-- Mobile View -->
+            <a href="#" class="nav-brand-mobile mobile-only">ANTARES</a>
+            <button class="navbar-toggle mobile-only" aria-expanded="false" aria-label="Abrir menú">
+                <span></span><span></span><span></span>
+            </button>
+
+            <!-- Navigation Drawer & Desktop/Tablet Layout -->
+            <nav class="navbar-nav">
+                <div class="navbar-links-container">
+                    <ul class="navbar-links nav-left">
+                        <li><a href="#sistemas">SYSTEMS</a></li>
+                        <li><a href="#operaciones">OPERATIONS</a></li>
+                    </ul>
+
+                    <div class="nav-center brand-desktop">
+                        <span class="icon-pause desktop-only">॥</span>
+                        <a href="#" class="nav-brand">ANTARES</a>
+                    </div>
+
+                    <ul class="navbar-links nav-right">
+                        <li><a href="#inteligencia">INTELLIGENCE</a></li>
+                        <li><a href="#contacto">CONTACT</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-layout">
+        <div class="hud-scanline"></div>
+
+        <section class="section hero" id="inicio">
+            <div class="hero-grid">
+
+                <!-- Left Side: Content & Tactical Info -->
+                <div class="hero-content">
+
+                    <div class="tactical-meta pulse">
+                        <span class="meta-dot"></span>
+                        <span class="meta-text">CORE_SYSTEM_ONLINE</span>
+                        <span class="meta-line"></span>
+                    </div>
+
+                    <h1>SISTEMAS<br>QUE <span class="text-muted">PIENSAN</span></h1>
+
+                    <p class="hero-description">
+                        Desarrollo de software y automatización IA para equipos que operan en el futuro. Arquitectura
+                        técnica sin concesiones.
+                    </p>
+
+                    <div class="btn-group">
+                        <a href="#operacion" class="btn btn-primary">INICIAR OPERACIÓN</a>
+                        <a href="#stack" class="btn btn-secondary">REVISAR STACK</a>
+                    </div>
+
+                    <div class="hero-technical-footer">
+                        <div class="tech-stat">
+                            <span class="stat-label">LATENCY</span>
+                            <span id="latency-value" class="stat-value">0.00042 MS</span>
+                        </div>
+                        <div class="tech-stat">
+                            <span class="stat-label">BANDWIDTH</span>
+                            <span id="bandwidth-value" class="stat-value">900.00 PB/S</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Cinematic Visual -->
+                <div class="hero-visual desktop-only">
+                    <div class="visual-frame">
+                        <!-- Crosshairs -->
+                        <div class="crosshair top-left"></div>
+                        <div class="crosshair top-right"></div>
+                        <div class="crosshair bottom-left"></div>
+                        <div class="crosshair bottom-right"></div>
+
+                        <!-- Overlay Gradients -->
+                        <div class="gradient-overlay bottom-up"></div>
+                        <div class="gradient-overlay left-right"></div>
+
+                        <!-- Scanning Laser Line -->
+                        <div class="hud-scanner-line"></div>
+
+                        <!-- Main Image -->
+                        <!-- Usaremos un placeholder sólido oscuro hasta que conectemos una imagen -->
+                        <div class="cinematic-image-placeholder"></div>
+
+                        <!-- HUD Data Overlays -->
+                        <div class="hud-data-overlay">
+                            <div id="scanning-text" class="hud-box">SCANNING_OBJECTIVE...</div>
+                            <div class="hud-progress-track">
+                                <div id="hud-progress-bar" class="hud-progress-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page Scroll Indicator -->
+        <div class="scroll-indicator">
+            <div class="scroll-track">
+                <div class="scroll-thumb"></div>
+            </div>
+            <div class="scroll-info">
+                <span class="scroll-label">SCROLL_FOR_INTEL</span>
+                <span class="scroll-value">01 / 04</span>
+            </div>
+        </div>
+
+        <section class="section features reveal" id="servicios">
+            <div class="container">
+                <h2>Arquitectura de Operaciones</h2>
+                <p>Infraestructura diseñada para orchestrar workflows complejos con precisión milimétrica.</p>
+
+                <div class="grid stagger-reveal">
+                    <div class="card feature-card">
+                        <div class="feature-icon">⬡</div>
+                        <h3>Protocol Orchestration</h3>
+                        <p>Orquestación de múltiples agentes con ejecución paralela y gestión de dependencias
+                            inteligentes.</p>
+                        <a href="#" class="link">Ver capacidades →</a>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon">⬢</div>
+                        <h3>Autonomous Execution</h3>
+                        <p>Capas de ejecución autónoma con recuperación automática y gestión de estados persistentes.
+                        </p>
+                        <a href="#" class="link">Ver capacidades →</a>
+                    </div>
+                    <div class="card feature-card">
+                        <div class="feature-icon">⬧</div>
+                        <h3>Adaptive Intelligence</h3>
+                        <p>Sistemas de aprendizaje dinámico que optimizan workflows según patrones de uso real.</p>
+                        <a href="#" class="link">Ver capacidades →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section testimonials reveal" id="nosotros">
+            <div class="container">
+                <h2>ecosistema operativo</h2>
+                <p>Equipos que han transformado sus flujos de trabajo con protocolos de ejecución inteligente.</p>
+                <div class="grid stagger-reveal">
+                    <div class="card testimonial-card">
+                        <div class="testimonial-status">● ACTIVO</div>
+                        <p class="testimonial-text">"La orquestación de agentes transformó nuestra capacidad de
+                            procesamiento. Incremento del 340% en throughput."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">JG</div>
+                            <div class="author-info">
+                                <p class="author-name">Lead Architect</p>
+                                <p class="author-role">System Integration Corp</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card testimonial-card">
+                        <div class="testimonial-status">● ACTIVO</div>
+                        <p class="testimonial-text">"Los pipelines de ejecución autónoma redujeron nuestros tiempos de
+                            respuesta de horas a milisegundos."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">MG</div>
+                            <div class="author-info">
+                                <p class="author-name">CTO</p>
+                                <p class="author-role">Neural Dynamics</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card testimonial-card">
+                        <div class="testimonial-status">● ACTIVO</div>
+                        <p class="testimonial-text">"La capacidad de adaptación inteligente del sistema excedió nuestras
+                            proyecciones de eficiencia."</p>
+                        <div class="testimonial-author">
+                            <div class="author-avatar">CR</div>
+                            <div class="author-info">
+                                <p class="author-name">Head of Operations</p>
+                                <p class="author-role">Quantum Labs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section pricing reveal" id="catalogo">
+            <div class="container">
+                <h2>Configuraciones de Protocolo</h2>
+                <p>Escala tu infraestructura de automatización según los requerimientos de tu operación.</p>
+
+                <div class="billing-toggle" role="group" aria-label="Selector de facturación">
+                    <span class="billing-label active" data-billing="monthly">Mensual</span>
+                    <button class="toggle-switch" aria-pressed="false" aria-label="Cambiar facturación a anual">
+                        <span class="toggle-knob"></span>
+                    </button>
+                    <span class="billing-label" data-billing="annual">Anual</span>
+                </div>
+
+                <div class="pricing-grid stagger-reveal">
+                    <!-- Card Starter -->
+                    <div class="card pricing-card" data-plan="starter">
+                        <div class="pricing-header">
+                            <h3 class="plan-name">Essencial</h3>
+                            <div class="plan-price">
+                                <span class="amount" data-monthly="$9" data-annual="$7">$9</span>
+                                <span class="period">/mes</span>
+                            </div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>5 Workflows simultáneos</li>
+                            <li>API estándar</li>
+                            <li class="disabled">Colas prioritas</li>
+                        </ul>
+                        <button class="btn btn-secondary select-plan">Iniciar Essencial</button>
+                    </div>
+
+                    <!-- Card Pro (Recomendado) -->
+                    <div class="card pricing-card recommended" data-plan="pro">
+                        <div class="popular-badge">Recomendado</div>
+                        <div class="pricing-header">
+                            <h3 class="plan-name">Advanced</h3>
+                            <div class="plan-price">
+                                <span class="amount" data-monthly="$29" data-annual="$23">$29</span>
+                                <span class="period">/mes</span>
+                            </div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Workflows ilimitados</li>
+                            <li>API prioritaria</li>
+                            <li>Colas de ejecución prioritaria</li>
+                        </ul>
+                        <button class="btn btn-primary select-plan">Iniciar Advanced</button>
+                    </div>
+
+                    <!-- Card Enterprise -->
+                    <div class="card pricing-card" data-plan="enterprise">
+                        <div class="pricing-header">
+                            <h3 class="plan-name">Enterprise</h3>
+                            <div class="plan-price">
+                                <span class="amount" data-monthly="$99" data-annual="$79">$99</span>
+                                <span class="period">/mes</span>
+                            </div>
+                        </div>
+                        <ul class="feature-list">
+                            <li>Infraestructura dedicada</li>
+                            <li>Soporte 24/7</li>
+                            <li>Consultoría de implementación</li>
+                        </ul>
+                        <button class="btn btn-secondary select-plan">Iniciar Enterprise</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section faq reveal" id="contacto">
+            <div class="container">
+                <h2>Protocolo de Consulta</h2>
+                <p>Información operativa para evaluar compatibilidad con tu infraestructura.</p>
+                <div class="faq-container" id="faq-container"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="footer-logo">ANTARES</div>
+                    <p>Arquitectura de Inteligencia Silenciosa</p>
+                </div>
+                <div class="footer-status">
+                    <span class="status-dot"></span>
+                    <span class="status-text">SYSTEM READY</span>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ANTARES Intelligence. Operando bajo protocolos de precisión.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ANTARES Core Engine -->
+    <script type="module" src="src/js/main.js"></script>
+</body>
+
+</html>

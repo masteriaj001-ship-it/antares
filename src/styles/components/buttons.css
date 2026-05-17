@@ -1,0 +1,50 @@
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    padding: 0 32px;
+    border-radius: 0; /* Brutalist square corners */
+    text-decoration: none;
+    font-family: 'Inter', monospace;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s var(--easing-cinematic);
+    cursor: pointer;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: flex-start; /* Left aligned */
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-primary {
+    background: var(--color-primary);
+    color: var(--color-primary-dark);
+    border: 1px solid var(--color-primary);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid var(--color-outline-variant);
+    color: var(--color-text-main);
+}
+
+.btn-primary:hover {
+    background: #ffffff;
+    border-color: #ffffff;
+    color: var(--color-bg-deep);
+    box-shadow: 0 0 16px rgba(184, 195, 255, 0.4); /* Brillo interactivo premium */
+    transform: translateY(-1px);
+}
+
+.btn-secondary:hover {
+    background: rgba(184, 195, 255, 0.05);
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    transform: translateY(-1px);
+}

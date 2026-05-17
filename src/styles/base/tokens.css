@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syncopate:wght@400;700&display=swap');
+
+:root {
+    /* Colors - ANTARES Tactical Slate Blue Palette */
+    --color-primary: #b8c3ff; /* Ice Blue / Acento */
+    --color-primary-dark: #002388; /* Contraste del primary */
+    --color-primary-container: #2e5bff; /* Azul Cobalto vibrante */
+    
+    --color-bg-deep: #121314; /* Surface base */
+    --color-bg-card: #1f2021; /* Surface container */
+    --color-bg-card-low: #1b1c1d;
+    --color-bg-card-lowest: #0d0e0f;
+    --color-bg-card-high: #292a2b;
+    --color-bg-card-highest: #343536;
+
+    --color-text-main: #e3e2e3; /* On Surface */
+    --color-text-muted: #c4c5d9; /* On Surface Variant */
+    
+    --color-outline: #8e90a2; /* Outline */
+    --color-outline-variant: #434656; /* Outline Variant */
+    --color-border: rgba(142, 144, 162, 0.2); /* Borde calibrado */
+
+    /* Typography */
+    --font-main: 'Inter', sans-serif;
+    --font-heading: 'Syncopate', sans-serif; /* Wide-extended futuristic tech font */
+
+    /* Motion */
+    --easing-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* Spacing - Mobile first */
+    --space-10: 4rem;
+}
+
+@media (min-width: 992px) {
+    :root {
+        --space-10: 8rem;
+    }
+}

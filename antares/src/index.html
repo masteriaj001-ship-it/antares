@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>landing page</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <button class="navbar-toggle" aria-expanded="false" aria-label="Abrir menú">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <nav class="navbar-nav">
+                    <ul class="navbar-links">
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#catalogo">Catálogo</a></li>
+                        <li class="brand"><a href="#">AURA</a></li>
+                        <li><a href="#nosotros">Nosotros</a></li>
+                        <li><a href="#tienda">Tienda</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="section hero reveal" id="inicio">
+        <div class="container">
+            <div class="hero-badge reveal">
+                <span class="badge-dot"></span>
+                <span class="badge-text">Antares v1.0 — Automatización Inteligente</span>
+            </div>
+            <h1>Inteligencia para Equipos Creativos</h1>
+            <p>La nueva era del workflow digital. Una plataforma minimalista diseñada para potenciar la creatividad mediante procesos automatizados de alta fidelidad.</p>
+            <div class="btn-group reveal">
+                <a href="#catalogo" class="btn btn-primary">Empezar ahora</a>
+                <a href="#servicios" class="btn btn-secondary">Ver funcionalidades</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section features reveal" id="servicios">
+        <div class="container">
+            <h2>Por qué elegirnos</h2>
+            <p>Nos enfocamos en la excelencia para brindarte una experiencia de compra inigualable.</p>
+
+            <div class="grid stagger-reveal">
+                <div class="card feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Envío Express</h3>
+                    <p>Recibe tus productos en menos de 24 horas con nuestro servicio de logística premium.</p>
+                    <a href="#" class="link">Saber más →</a>
+                </div>
+                <div class="card feature-card">
+                    <div class="feature-icon">💎</div>
+                    <h3>Calidad Premium</h3>
+                    <p>Cada artículo en nuestro catálogo es seleccionado bajo rigurosos estándares de calidad.</p>
+                    <a href="#" class="link">Saber más →</a>
+                </div>
+                <div class="card feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Compra Segura</h3>
+                    <p>Tu tranquilidad es nuestra prioridad. Garantía total en cada una de tus transacciones.</p>
+                    <a href="#" class="link">Saber más →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section testimonials reveal" id="nosotros">
+        <div class="container">
+            <h2>Lo que dicen de nosotros</h2>
+            <p>La satisfacción de nuestros clientes es nuestro mejor respaldo.</p>
+            <div class="grid stagger-reveal">
+                <div class="card testimonial-card">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"La calidad de los productos es impresionante. Superó mis expectativas en todos los sentidos."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JG</div>
+                        <div class="author-info">
+                            <p class="author-name">Juan García</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card testimonial-card">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"El envío fue increíblemente rápido. El empaque era tan elegante como el producto mismo."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MG</div>
+                        <div class="author-info">
+                            <p class="author-name">María Gómez</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card testimonial-card">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"Un servicio al cliente excepcional. Resolvieron todas mis dudas de manera inmediata."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">CR</div>
+                        <div class="author-info">
+                            <p class="author-name">Carlos Rodríguez</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section pricing reveal" id="catalogo">
+        <div class="container">
+            <h2>Planes diseñados para ti</h2>
+            <p>Elige la opción que mejor se adapte a tus necesidades y comienza a disfrutar.</p>
+
+            <div class="billing-toggle">
+                <span class="billing-label active" data-billing="monthly">Mensual</span>
+                <button class="toggle-switch" aria-label="Cambiar facturación">
+                    <span class="toggle-knob"></span>
+                </button>
+                <span class="billing-label" data-billing="annual">Anual</span>
+            </div>
+
+            <div class="pricing-grid stagger-reveal">
+                <!-- Card Starter -->
+                <div class="card pricing-card" data-plan="starter">
+                    <div class="pricing-header">
+                        <h3 class="plan-name">Esencial</h3>
+                        <div class="plan-price">
+                            <span class="amount" data-monthly="$9" data-annual="$7">$9</span>
+                            <span class="period">/mes</span>
+                        </div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Acceso básico</li>
+                        <li>Soporte estándar</li>
+                        <li class="disabled">Actualizaciones pro</li>
+                    </ul>
+                    <button class="btn btn-secondary select-plan">Elegir Esencial</button>
+                </div>
+
+                <!-- Card Pro (Recomendado) -->
+                <div class="card pricing-card recommended" data-plan="pro">
+                    <div class="popular-badge">Recomendado</div>
+                    <div class="pricing-header">
+                        <h3 class="plan-name">Avanzado</h3>
+                        <div class="plan-price">
+                            <span class="amount" data-monthly="$29" data-annual="$23">$29</span>
+                            <span class="period">/mes</span>
+                        </div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Acceso completo</li>
+                        <li>Soporte prioritario</li>
+                        <li>Actualizaciones pro</li>
+                    </ul>
+                    <button class="btn btn-primary select-plan">Elegir Avanzado</button>
+                </div>
+
+                <!-- Card Enterprise -->
+                <div class="card pricing-card" data-plan="enterprise">
+                    <div class="pricing-header">
+                        <h3 class="plan-name">Premium</h3>
+                        <div class="plan-price">
+                            <span class="amount" data-monthly="$99" data-annual="$79">$99</span>
+                            <span class="period">/mes</span>
+                        </div>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Todo ilimitado</li>
+                        <li>Soporte 24/7</li>
+                        <li>Consultoría dedicada</li>
+                    </ul>
+                    <button class="btn btn-secondary select-plan">Elegir Premium</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section faq reveal" id="contacto">
+        <div class="container">
+            <h2>Preguntas Frecuentes</h2>
+            <p>Resolvemos tus dudas de manera clara y directa.</p>
+            <div class="faq-container" id="faq-container"></div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

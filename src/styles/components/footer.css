@@ -1,0 +1,62 @@
+.footer {
+    padding: var(--space-10) 0 4rem;
+    background: #01040f;
+    border-top: 1px solid var(--color-border);
+    margin-top: 4rem;
+}
+
+.footer-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.footer-logo {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    letter-spacing: 0.3em;
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.footer-brand p {
+    color: var(--color-text-muted);
+    font-size: 0.85rem;
+}
+
+.footer-status {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem;
+    background: rgba(255,255,255,0.03);
+    border-radius: 9999px;
+    border: 1px solid var(--color-border);
+}
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+    background: #4ade80;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #4ade80;
+}
+
+.status-text {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #4ade80;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.03);
+    padding-top: 2rem;
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+}
