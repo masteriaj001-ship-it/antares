@@ -5,7 +5,15 @@ body {
     line-height: 1.6;
 }
 
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: var(--space-4);
+    letter-spacing: 1px;
+}
+
 :focus-visible {
-    outline: 2px solid var(--color-primary);
+    outline: 2px solid var(--accent-indigo);
     outline-offset: 2px;
 }
