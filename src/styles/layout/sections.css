@@ -1,6 +1,28 @@
 .section {
-    padding: var(--space-10) 0;
+    padding: var(--space-12) 0;
     text-align: center;
+}
+
+.section h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 700;
+    color: var(--color-text-main);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    line-height: 1.1;
+    text-wrap: balance;
+    margin: 0 auto var(--space-4) auto;
+}
+
+.section > .container > p {
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto var(--space-8) auto;
+    line-height: 1.6;
+    text-wrap: balance;
 }
 
 .grid {
