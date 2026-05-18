@@ -12,6 +12,12 @@
     box-sizing: border-box;
 }
 
+@media (min-width: 1024px) {
+    .footer {
+        padding-left: 64px; /* Compensate for the global left fixed sidebar to prevent overlap */
+    }
+}
+
 /* --- Grid principal: 1 columna base (mobile-first) --- */
 .footer-grid {
     display: grid;
