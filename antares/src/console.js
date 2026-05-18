@@ -20,26 +20,23 @@ class AntaresConsoleController {
     }
 
     initAgents() {
-        const agentNames = [
-            'Protocol Orchestrator',
-            'Data Sentinel',
-            'Neural Bridge',
-            'Memory Core',
-            'Quantum Link',
-            'Sync Hub',
-            'Logic Gate',
-            'Cache Master',
-            'Flow Control'
+        this.agents = [
+            { id: 'agt_01', name: 'ATLAS', role: 'Implementador de Código', status: 'active' },
+            { id: 'agt_02', name: 'NYX', role: 'Atmósfera Visual', status: 'active' },
+            { id: 'agt_03', name: 'ECHO', role: 'Auditor de Especificaciones', status: 'active' },
+            { id: 'agt_04', name: 'SENTINEL', role: 'Guardián del Sandbox', status: 'idle' },
+            { id: 'agt_05', name: 'HERMES', role: 'Enrutador de Protocolos', status: 'active' },
+            { id: 'agt_06', name: 'CHRONOS', role: 'Motor de Animación GSAP', status: 'active' },
+            { id: 'agt_07', name: 'HESTIA', role: 'Gestor de Estado y Cache', status: 'idle' },
+            { id: 'agt_08', name: 'ARES', role: 'Optimizador de LCP/GPU', status: 'active' },
+            { id: 'agt_09', name: 'ZEPHYR', role: 'Controlador de FOUC/CSS', status: 'error' }
         ];
 
-        this.agents = agentNames.map((name, i) => ({
-            id: `agt_${String(i + 1).padStart(2, '0')}`,
-            name: name,
-            status: Math.random() > 0.1 ? 'active' : 'idle',
-            latency: (Math.random() * 0.0006 + 0.00025) * 1000,
-            threads: Math.floor(Math.random() * 8) + 1,
-            memory: Math.random() * 0.5 + 0.2
-        }));
+        this.agents.forEach(agent => {
+            agent.latency = (Math.random() * 0.0006 + 0.00025) * 1000;
+            agent.threads = Math.floor(Math.random() * 8) + 1;
+            agent.memory = Math.random() * 0.5 + 0.2;
+        });
     }
 
     renderAgentGrid() {
@@ -57,6 +54,7 @@ class AntaresConsoleController {
                 <span class="node-status ${agent.status}"></span>
                 <span class="node-id">${agent.id.toUpperCase()}</span>
                 <span class="node-name">${agent.name}</span>
+                <span class="node-role">${agent.role}</span>
             `;
 
             node.addEventListener('click', () => this.selectAgent(agent.id));
@@ -105,15 +103,17 @@ class AntaresConsoleController {
         const streamIndicator = document.querySelector('.stream-indicator');
 
         if (this.isActive) {
-            btn.innerHTML = '<span class="btn-icon">&#x275A;&#x275A;</span><span class="btn-text">PAUSE</span>';
+            btn.innerHTML = '<span class="btn-icon">&#x275A;&#x275A;</span><span class="btn-text">[ PAUSAR MONITOREO ]</span>';
             pulse.classList.remove('paused');
-            streamIndicator.querySelector('.stream-indicator').lastChild.textContent = 'STREAMING';
+            const streamStatus = document.querySelector('.stream-status');
+            if (streamStatus) streamStatus.textContent = 'TRANSMISIÓN EN VIVO';
             streamDot.style.animation = 'pulse 1s ease-in-out infinite';
             this.scheduleNextLog();
         } else {
-            btn.innerHTML = '<span class="btn-icon">&#x25B6;</span><span class="btn-text">PLAY</span>';
+            btn.innerHTML = '<span class="btn-icon">&#x25B6;</span><span class="btn-text">[ REANUDAR SIMULACIÓN ]</span>';
             pulse.classList.add('paused');
-            streamIndicator.querySelector('span:last-child').textContent = 'PAUSED';
+            const streamStatus = document.querySelector('.stream-status');
+            if (streamStatus) streamStatus.textContent = 'TRANSMISIÓN PAUSADA';
             streamDot.style.animation = 'none';
             if (this.logIntervalId) clearTimeout(this.logIntervalId);
         }
@@ -151,10 +151,8 @@ class AntaresConsoleController {
 
     pushInitialLogs() {
         const initialLogs = [
-            { category: 'system', level: 'success', message: 'ANTARES_CORE v3.2.1 initialized' },
-            { category: 'system', level: 'info', message: 'Loading agent matrix configuration' },
-            { category: 'network', level: 'info', message: 'Establishing mesh network topology' },
-            { category: 'agent', level: 'info', message: 'All agents responding within threshold' }
+            { category: 'system', level: 'success', message: 'NÚCLEO EN LÍNEA: Inicializando orquestación de agentes...' },
+            { category: 'system', level: 'success', message: 'CONEXIÓN EXITOSA: Servidor Vite sirviendo en puerto activo.' }
         ];
 
         initialLogs.forEach((log, i) => {
@@ -306,33 +304,37 @@ class AntaresConsoleController {
         content.innerHTML = `
             <div class="agent-detail">
                 <div class="detail-section">
-                    <div class="detail-section-title">Agent Information</div>
+                    <div class="detail-section-title">Información del Agente</div>
                     <div class="detail-row">
                         <span class="detail-label">ID</span>
                         <span class="detail-value indigo">${agent.id.toUpperCase()}</span>
                     </div>
                     <div class="detail-row">
-                        <span class="detail-label">Name</span>
+                        <span class="detail-label">Nombre</span>
                         <span class="detail-value">${agent.name}</span>
                     </div>
                     <div class="detail-row">
-                        <span class="detail-label">Status</span>
-                        <span class="detail-value ${statusClass}">${agent.status.toUpperCase()}</span>
+                        <span class="detail-label">Rol</span>
+                        <span class="detail-value">${agent.role}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">ESTADO DE EJECUCIÓN</span>
+                        <span class="detail-value ${statusClass}">● ${agent.status === 'active' ? 'ACTIVO' : agent.status === 'error' ? 'FALLO' : 'INACTIVO'}</span>
                     </div>
                 </div>
 
                 <div class="detail-section">
-                    <div class="detail-section-title">Performance Metrics</div>
+                    <div class="detail-section-title">Métricas de Rendimiento</div>
                     <div class="detail-row">
-                        <span class="detail-label">Latency</span>
+                        <span class="detail-label">LATENCIA DE RESPUESTA</span>
                         <span class="detail-value">${agent.latency.toFixed(6)} ms</span>
                     </div>
                     <div class="detail-row">
-                        <span class="detail-label">Threads Active</span>
+                        <span class="detail-label">Hilos Activos</span>
                         <span class="detail-value indigo">${agent.threads}</span>
                     </div>
                     <div class="detail-row">
-                        <span class="detail-label">Memory Usage</span>
+                        <span class="detail-label">CAPACIDAD DEL BUFFER</span>
                         <span class="detail-value">${memoryPercent}%</span>
                     </div>
                     <div class="memory-bar">

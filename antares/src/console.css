@@ -72,6 +72,33 @@ body {
     align-items: center;
 }
 
+.title-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.title-row .system-label {
+    font-size: 0.55rem;
+}
+
+.subtitle-row .console-title {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #e3e2e3;
+    text-transform: uppercase;
+}
+
+.security-row .security-subtitle {
+    font-size: 0.45rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: #6b7280;
+    text-transform: uppercase;
+}
+
 .system-label {
     font-family: var(--font-display);
     font-size: 0.65rem;
@@ -346,10 +373,19 @@ body {
 }
 
 .agent-node .node-name {
-    font-size: 0.5rem;
-    color: #c4c5d9;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--accent-indigo);
     text-align: center;
     line-height: 1.2;
+    padding: 0 0.25rem;
+}
+
+.node-role {
+    font-size: 0.45rem;
+    color: #6b7280;
+    text-align: center;
+    line-height: 1.1;
     padding: 0 0.25rem;
 }
 
