@@ -1,9 +1,9 @@
 :root {
-    --bg-primary: #0A0A0F;
-    --bg-card-glass: rgba(255, 255, 255, 0.03);
-    --border-glass: rgba(255, 255, 255, 0.08);
-    --accent-indigo: #6366F1;
-    --accent-indigo-light: rgba(99, 102, 241, 0.2);
+    --bg-primary: #050506; /* Deepest cold carbon black */
+    --bg-card-glass: rgba(255, 255, 255, 0.02);
+    --border-glass: rgba(197, 168, 128, 0.12); /* Brushed Gold glass border */
+    --accent-indigo: #C5A880; /* Brushed Titanium Gold */
+    --accent-indigo-light: rgba(197, 168, 128, 0.18);
     --accent-green: #10B981;
     --accent-amber: #F59E0B;
     --accent-red: #EF4444;

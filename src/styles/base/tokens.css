@@ -1,31 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syncopate:wght@400;700&display=swap');
 
 :root {
-    /* Colors - ANTARES Tactical Slate Blue Palette */
-    --color-primary: #b8c3ff;
-    --color-primary-dark: #002388;
-    --color-primary-container: #2e5bff;
+    /* Colors - ANTARES Dark Luxury Carbon & Gold Palette */
+    --color-primary: #C5A880; /* Brushed Titanium Gold */
+    --color-primary-dark: #3D3528;
+    --color-primary-container: #5E523E;
     
-    --color-bg-deep: #121314;
-    --color-bg-card: #1f2021;
-    --color-bg-card-low: #1b1c1d;
-    --color-bg-card-lowest: #0d0e0f;
-    --color-bg-card-high: #292a2b;
-    --color-bg-card-highest: #343536;
+    --color-bg-deep: #080809; /* Deeper cold carbon black */
+    --color-bg-card: #121314;
+    --color-bg-card-low: #0e0f10;
+    --color-bg-card-lowest: #050506;
+    --color-bg-card-high: #1c1d1f;
+    --color-bg-card-highest: #26282a;
 
-    --color-text-main: #e3e2e3;
-    --color-text-muted: #c4c5d9;
-    --color-text-dim: #6b7280;
+    --color-text-main: #e9e8e9;
+    --color-text-muted: #c7c6b5; /* Slightly warm gray */
+    --color-text-dim: #737468;
     
-    --color-outline: #8e90a2;
-    --color-outline-variant: #434656;
-    --color-border: rgba(142, 144, 162, 0.2);
+    --color-outline: #a3a18e;
+    --color-outline-variant: #5e5b4f;
+    --color-border: rgba(197, 168, 128, 0.15);
 
-    /* Premium Indigo Accent */
-    --accent-indigo: #6366F1;
-    --accent-indigo-light: rgba(99, 102, 241, 0.2);
-    --accent-indigo-glow: rgba(99, 102, 241, 0.15);
-    --accent-indigo-shadow: rgba(99, 102, 241, 0.4);
+    /* Premium Brand Accent (Ditching generic Vercel Indigo) */
+    --accent-indigo: #C5A880; /* Mapped to Titanium Gold for maximum compatibility */
+    --accent-indigo-light: rgba(197, 168, 128, 0.15);
+    --accent-indigo-glow: rgba(197, 168, 128, 0.08);
+    --accent-indigo-shadow: rgba(197, 168, 128, 0.35);
 
     /* Backgrounds */
     --bg-primary: #0A0A0F;
