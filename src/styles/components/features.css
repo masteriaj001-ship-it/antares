@@ -1,20 +1,184 @@
 /* ==========================================================================
-   COMPONENT: FEATURES PREMIUM
+   COMPONENT: SERVICES (Verticales de Operación)
+   Industrial brutalist grid layout with rigid rectangular cards
    ========================================================================== */
 
+.services {
+    background: var(--color-bg-deep);
+    padding: 6rem 0;
+}
+
+/* Header Section */
+.services-header {
+    text-align: left;
+    margin-bottom: 4rem;
+    padding: 0 24px;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.section-indicator {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--color-primary);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.services-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 700;
+    color: var(--color-text-main);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 1rem 0;
+}
+
+.services-subtitle {
+    font-family: var(--font-main);
+    font-size: 1rem;
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+/* Services Grid - 2x2 on Desktop */
+.services-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .services-grid {
+        gap: 1px;
+    }
+}
+
+/* Service Card - Brutalist Rectangular */
+.service-card {
+    background: #080809;
+    border-radius: 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: border-color 200ms ease-out, background 200ms ease-out;
+    border: 1px solid transparent;
+}
+
+.service-card:hover {
+    background: #0a0a0c;
+    border-color: rgba(197, 168, 128, 0.4);
+}
+
+.service-card:hover .card-id {
+    transform: translateX(4px);
+}
+
+/* Card Header */
+.card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.card-id {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--color-primary);
+    letter-spacing: 0.15em;
+    transition: transform 200ms ease-out;
+}
+
+.card-title {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+    line-height: 1.3;
+}
+
+/* Card Description */
+.card-description {
+    font-family: var(--font-main);
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+    margin: 0;
+}
+
+/* Technical Info Block */
+.card-tech-info {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.tech-label {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--color-text-dim);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.tech-specs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.tech-specs span {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-text-muted);
+    letter-spacing: 0.03em;
+    line-height: 1.5;
+}
+
+.protocol-active {
+    color: var(--accent-green);
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   LEGACY FEATURES STYLES (Deprecated - Use Services)
+   ========================================================================== */
 .features {
     background:
         radial-gradient(ellipse at 50% 30%, rgba(197, 168, 128, 0.06) 0%, transparent 70%);
 }
 
 .container {
-
     font-weight: 700;
 }
 
 .feature-card {
     background: var(--bg-card-glass);
-    border: 1px solid var(--border-glass);
+    border: 1px solid rgba(197, 168, 128, 0.25);
+    box-shadow: 0 4px 15px rgba(197, 168, 128, 0.08);
     border-radius: var(--radius-lg);
     padding: var(--space-6);
     display: flex;
@@ -24,8 +188,8 @@
 }
 
 .feature-card:hover {
-    border-color: rgba(197, 168, 128, 0.25);
-    box-shadow: 0 4px 20px rgba(197, 168, 128, 0.12);
+    border-color: rgba(197, 168, 128, 0.55);
+    box-shadow: 0 8px 32px rgba(197, 168, 128, 0.25);
     transform: translateY(-4px);
 }
 
