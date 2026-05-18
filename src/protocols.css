@@ -25,11 +25,14 @@
 
 /* --- Telemetría Superior --- */
 .protocols-hero {
-    padding-bottom: 3rem;
+    text-align: left !important;
+    padding-top: 1.5rem !important; /* Pull content upward, avoiding excessive empty space */
+    padding-bottom: 2rem !important;
 }
 
 .protocols-hero .tactical-meta {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem !important;
+    justify-content: flex-start !important;
 }
 
 .editorial-title {
@@ -41,6 +44,7 @@
     color: var(--color-text-main, #e3e2e3);
     text-transform: uppercase;
     margin-bottom: 1.5rem;
+    text-align: left !important;
 }
 
 .editorial-subtitle {
@@ -49,6 +53,9 @@
     line-height: 1.6;
     color: var(--color-text-muted, #6b7280);
     max-width: 600px;
+    text-align: left !important;
+    margin-left: 0 !important;
+    margin-right: auto !important;
 }
 
 /* --- Filas de Protocolos --- */
