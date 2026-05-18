@@ -6,7 +6,8 @@
 .main-layout {
     position: relative;
     min-height: 100vh;
-    padding-top: 48px; /* Offset for slim navbar */
+    padding-top: 48px;
+    /* Offset for slim navbar */
     margin-left: var(--sidebar-width-mobile);
     width: 100%;
     overflow-x: hidden;
@@ -41,11 +42,13 @@
     display: flex;
     align-items: center;
     text-align: left;
-    background-color: #f6f7f8; /* Premium off-white / light editorial gray */
-    background-image: 
+    background-color: #f6f7f8;
+    /* Premium off-white / light editorial gray */
+    background-image:
         linear-gradient(to right, rgba(197, 168, 128, 0.05) 1px, transparent 1px),
         linear-gradient(to bottom, rgba(197, 168, 128, 0.05) 1px, transparent 1px);
-    background-size: 40px 40px; /* Technical fine grid */
+    background-size: 40px 40px;
+    /* Technical fine grid */
     color: #111213;
     overflow: hidden;
 }
@@ -58,7 +61,8 @@
     max-width: 1200px;
     margin: 0 auto;
     align-items: center;
-    padding-bottom: 120px; /* Space for the wave divider */
+    padding-bottom: 120px;
+    /* Space for the wave divider */
     position: relative;
     z-index: 5;
 }
@@ -95,8 +99,15 @@
 }
 
 @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: .5; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .5;
+    }
 }
 
 .meta-dot {
@@ -122,18 +133,20 @@
 /* Typography */
 .hero h1 {
     font-family: var(--font-heading);
-    font-size: clamp(2.25rem, 4.5vw, 4.25rem);
-    line-height: 1.2;
+    font-size: clamp(5.25rem, 4.5vw, 4.25rem);
+    line-height: 1.05;
     letter-spacing: 0.06em;
     font-weight: 800;
-    color: #111213; /* Bold obsidian black */
+    color: #111213;
+    /* Bold obsidian black */
     text-transform: uppercase;
     max-width: 48rem;
     margin: 0;
 }
 
 .hero h1 .text-muted {
-    color: var(--color-primary); /* Brushed Titanium Gold */
+    color: var(--color-primary);
+    /* Brushed Titanium Gold */
 }
 
 /* Fix para SplitType con colores en texto mixto */
@@ -145,7 +158,8 @@
     font-family: 'Inter', sans-serif;
     font-size: 1rem;
     line-height: 1.7;
-    color: #374151; /* Clean anthracite gray for perfect legibility */
+    color: #374151;
+    /* Clean anthracite gray for perfect legibility */
     max-width: 28rem;
     margin: 0;
 }
@@ -217,7 +231,8 @@
     height: 120px;
     overflow: hidden;
     line-height: 0;
-    z-index: 3; /* Behind image and text */
+    z-index: 3;
+    /* Behind image and text */
 }
 
 .hero-wave-divider svg {
@@ -230,9 +245,12 @@
 /* Right Side: Visual */
 .hero-visual {
     display: none;
+    align-items: center;
+    justify-content: center;
     height: 100%;
     position: relative;
-    overflow: visible; /* Allows overlapping down over the curve */
+    overflow: visible;
+    /* Allows overlapping down over the curve */
     z-index: 10;
 }
 
@@ -242,36 +260,47 @@
     }
 }
 
-/* Cinematic Image with 3D Float Contour Silhouette Shadow */
-.cinematic-image {
+/* Cinematic Image or Video with 3D Float Contour Silhouette Shadow */
+.cinematic-image,
+.cinematic-video {
     width: 100%;
-    max-width: 480px;
+    max-width: 600px;
     height: auto;
     display: block;
     margin-left: auto;
     margin-top: 40px;
     opacity: 0.98;
     filter: contrast(1.02) brightness(1.02) drop-shadow(0 20px 30px rgba(0, 0, 0, 0.45));
-    transform: translateY(50px); /* Overlaps wave divider curve beautifully */
+    transform: translateY(50px);
+    /* Overlaps wave divider curve beautifully */
     transition: transform 0.4s var(--easing-cinematic), filter 0.4s var(--easing-cinematic);
 }
 
-.cinematic-image:hover {
-    transform: translateY(38px); /* Hover micro-interaction */
+.cinematic-video {
+    mix-blend-mode: screen; /* Knocks out solid black background to float as a gold hologram! */
+}
+
+.cinematic-image:hover,
+.cinematic-video:hover {
+    transform: translateY(38px);
+    /* Hover micro-interaction */
     filter: contrast(1.05) brightness(1.05) drop-shadow(0 28px 40px rgba(0, 0, 0, 0.55));
 }
 
 /* Page Scroll Indicator */
 .scroll-indicator {
-    display: none; /* Mobile & Tablet: oculto para evitar colisiones y superposición */
+    display: none;
+    /* Mobile & Tablet: oculto para evitar colisiones y superposición */
 }
 
 @media (min-width: 1024px) {
     .scroll-indicator {
-        display: flex; /* Desktop: visible al lado del sidebar */
+        display: flex;
+        /* Desktop: visible al lado del sidebar */
         position: absolute;
         bottom: 64px;
-        left: 24px; /* Relative to hero (24px gap from left) */
+        left: 24px;
+        /* Relative to hero (24px gap from left) */
         align-items: center;
         gap: 1rem;
         z-index: 50;
