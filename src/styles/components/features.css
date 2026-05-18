@@ -4,7 +4,7 @@
 
 .features {
     background:
-        radial-gradient(ellipse at 50% 30%, rgba(99, 102, 241, 0.08) 0%, transparent 70%);
+        radial-gradient(ellipse at 50% 30%, rgba(197, 168, 128, 0.06) 0%, transparent 70%);
 }
 
 .container {
@@ -24,8 +24,8 @@
 }
 
 .feature-card:hover {
-    border-color: rgba(99, 102, 241, 0.3);
-    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
+    border-color: rgba(197, 168, 128, 0.25);
+    box-shadow: 0 4px 20px rgba(197, 168, 128, 0.12);
     transform: translateY(-4px);
 }
 
