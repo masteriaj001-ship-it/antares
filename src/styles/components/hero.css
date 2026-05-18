@@ -1,13 +1,13 @@
 /* ==========================================================================
-   COMPONENT: HERO (TACTICAL)
+   COMPONENT: HERO (TACTICAL MANIFESTO)
+   Industrial asymmetric layout with minimum 40% negative space
    ========================================================================== */
 
 /* Main layout wrapper */
 .main-layout {
     position: relative;
     min-height: 100vh;
-    padding-top: 48px;
-    /* Offset for slim navbar */
+    padding-top: 56px;
     margin-left: var(--sidebar-width-mobile);
     width: 100%;
     overflow-x: hidden;
@@ -26,12 +26,13 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.3;
-    background: linear-gradient(to bottom, transparent 50%, rgba(255, 255, 255, 0.02) 50%);
+    opacity: 0.25;
+    background: linear-gradient(to bottom, transparent 50%, rgba(255, 255, 255, 0.015) 50%);
     background-size: 100% 4px;
     z-index: 1;
 }
 
+/* Hero Section */
 .hero {
     position: relative;
     width: 100%;
@@ -42,207 +43,185 @@
     display: flex;
     align-items: center;
     text-align: left;
-    background-color: #f6f7f8;
-    /* Premium off-white / light editorial gray */
+    background: var(--color-bg-deep);
     background-image:
-        linear-gradient(to right, rgba(197, 168, 128, 0.05) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(197, 168, 128, 0.05) 1px, transparent 1px);
-    background-size: 40px 40px;
-    /* Technical fine grid */
-    color: #111213;
+        linear-gradient(to right, rgba(197, 168, 128, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(197, 168, 128, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    color: var(--color-text-main);
     overflow: hidden;
 }
 
+/* Asymmetric Grid Layout */
 .hero-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: clamp(2rem, 4vw, 6rem);
+    gap: 4rem;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     align-items: center;
-    padding-bottom: 120px;
-    /* Space for the wave divider */
+    padding: 4rem 0 8rem;
     position: relative;
     z-index: 5;
 }
 
 @media (min-width: 768px) {
     .hero-grid {
-        grid-template-columns: 1fr 1.05fr;
-        gap: clamp(3rem, 5vw, 8rem);
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: clamp(3rem, 6vw, 10rem);
         align-items: center;
+        padding: 6rem 0 10rem;
     }
 }
 
-/* Left Side: Content */
+/* Left Column: Content - Ultra-clean with negative space */
 .hero-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 8vh;
     gap: 2rem;
     position: relative;
     z-index: 10;
-    max-width: 620px;
+    max-width: 600px;
 }
 
-/* Tactical Meta */
+/* Tactical Meta Badge */
 .tactical-meta {
     display: flex;
     align-items: center;
     gap: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .tactical-meta.pulse {
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: meta-pulse 3s ease-in-out infinite;
 }
 
-@keyframes pulse {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: .5;
-    }
+@keyframes meta-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
 }
 
 .meta-dot {
     width: 8px;
     height: 8px;
-    background-color: var(--color-primary);
+    background: var(--accent-green);
+    box-shadow: 0 0 8px var(--accent-green);
 }
 
 .meta-text {
-    font-family: 'Inter', monospace;
-    font-size: 12px;
-    font-weight: 700;
-    color: #111213;
-    letter-spacing: 0.1em;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
 }
 
 .meta-line {
     height: 1px;
-    width: 6rem;
-    background-color: rgba(0, 0, 0, 0.15);
+    width: 4rem;
+    background: rgba(197, 168, 128, 0.3);
 }
 
-/* Typography */
+/* Typography - Manifesto */
 .hero h1 {
     font-family: var(--font-heading);
-    font-size: clamp(5.25rem, 4.5vw, 4.25rem);
-    line-height: 1.05;
-    letter-spacing: 0.06em;
-    font-weight: 800;
-    color: #111213;
-    /* Bold obsidian black */
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    letter-spacing: 0.04em;
+    font-weight: 700;
+    color: var(--color-text-main);
     text-transform: uppercase;
-    max-width: 48rem;
     margin: 0;
 }
 
 .hero h1 .text-muted {
     color: var(--color-primary);
-    /* Brushed Titanium Gold */
 }
 
-/* Fix para SplitType con colores en texto mixto */
 .hero h1 .word {
     display: inline-block;
 }
 
+/* Description */
 .hero-description {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-main);
     font-size: 1rem;
-    line-height: 1.7;
-    color: #374151;
-    /* Clean anthracite gray for perfect legibility */
-    max-width: 28rem;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+    max-width: 32rem;
     margin: 0;
 }
 
-/* Local Buttons Override for Contrast */
+/* Hero Telemetry Block - Industrial Terminal Style */
+.hero-telemetry {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    padding: 1rem 0;
+    border-top: 1px solid rgba(197, 168, 128, 0.15);
+}
+
+.telemetry-line {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+    letter-spacing: 0.05em;
+}
+
+/* Button Group */
+.btn-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* Hero Buttons - Brutalist Industrial Style */
 .hero .btn-primary {
-    background: #111213;
-    color: #ffffff;
-    border: 1px solid #111213;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    background: transparent;
+    color: var(--color-text-main);
+    border: 1px solid rgba(197, 168, 128, 0.5);
+    padding: 0.875rem 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.2s ease-out;
 }
 
 .hero .btn-primary:hover {
     background: var(--color-primary);
     border-color: var(--color-primary);
-    color: #111213;
-    box-shadow: 0 6px 24px rgba(197, 168, 128, 0.35);
+    color: var(--color-bg-deep);
+    box-shadow: 0 0 20px rgba(197, 168, 128, 0.3);
 }
 
 .hero .btn-secondary {
-    color: #111213;
-    border: 1px solid rgba(197, 168, 128, 0.5);
+    background: transparent;
+    color: var(--color-text-muted);
+    border: 1px solid rgba(197, 168, 128, 0.25);
+    padding: 0.875rem 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 0.2s ease-out;
 }
 
 .hero .btn-secondary:hover {
+    color: var(--color-text-main);
+    border-color: rgba(197, 168, 128, 0.5);
     background: rgba(197, 168, 128, 0.08);
-    border-color: rgba(197, 168, 128, 0.8);
-    color: #111213;
 }
 
-/* Technical Footer */
-.hero-technical-footer {
-    margin-top: 3rem;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.08);
-    padding-top: 2rem;
-}
-
-.tech-stat {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.stat-label {
-    font-family: 'Inter', monospace;
-    font-size: 12px;
-    color: #4b5563;
-    opacity: 0.7;
-    letter-spacing: 0.05em;
-}
-
-.stat-value {
-    font-family: 'Inter', monospace;
-    font-size: 12px;
-    color: #111213;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-}
-
-/* Wave Divider (Asymmetrical Curve) */
-.hero-wave-divider {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 120px;
-    overflow: hidden;
-    line-height: 0;
-    z-index: 3;
-    /* Behind image and text */
-}
-
-.hero-wave-divider svg {
-    position: relative;
-    display: block;
-    width: calc(100% + 1.3px);
-    height: 120px;
-}
-
-/* Right Side: Visual */
+/* Right Column: Visual - Clean Silhouette */
 .hero-visual {
     display: none;
     align-items: center;
@@ -250,57 +229,62 @@
     height: 100%;
     position: relative;
     overflow: visible;
-    /* Allows overlapping down over the curve */
     z-index: 10;
 }
 
 @media (min-width: 768px) {
     .hero-visual {
-        display: block;
+        display: flex;
     }
 }
 
-/* Cinematic Image or Video with 3D Float Contour Silhouette Shadow */
-.cinematic-image,
-.cinematic-video {
+/* Cinematic Image - Titanium Gold Drop Shadow */
+.cinematic-image {
     width: 100%;
-    max-width: 600px;
+    max-width: 480px;
     height: auto;
     display: block;
-    margin-left: auto;
-    margin-top: 40px;
-    opacity: 0.98;
-    filter: contrast(1.02) brightness(1.02) drop-shadow(0 20px 30px rgba(0, 0, 0, 0.45));
-    transform: translateY(50px);
-    /* Overlaps wave divider curve beautifully */
-    transition: transform 0.4s var(--easing-cinematic), filter 0.4s var(--easing-cinematic);
+    opacity: 0.95;
+    filter: drop-shadow(0 0 40px rgba(197, 168, 128, 0.2));
+    transform: translateY(30px);
+    transition: transform 0.5s var(--easing-cinematic), filter 0.5s var(--easing-cinematic);
 }
 
-.cinematic-video {
-    mix-blend-mode: screen; /* Knocks out solid black background to float as a gold hologram! */
+.cinematic-image:hover {
+    transform: translateY(20px);
+    filter: drop-shadow(0 0 60px rgba(197, 168, 128, 0.35));
 }
 
-.cinematic-image:hover,
-.cinematic-video:hover {
-    transform: translateY(38px);
-    /* Hover micro-interaction */
-    filter: contrast(1.05) brightness(1.05) drop-shadow(0 28px 40px rgba(0, 0, 0, 0.55));
+/* Wave Divider */
+.hero-wave-divider {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+    line-height: 0;
+    z-index: 3;
+}
+
+.hero-wave-divider svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 100px;
 }
 
 /* Page Scroll Indicator */
 .scroll-indicator {
     display: none;
-    /* Mobile & Tablet: oculto para evitar colisiones y superposición */
 }
 
 @media (min-width: 1024px) {
     .scroll-indicator {
         display: flex;
-        /* Desktop: visible al lado del sidebar */
         position: absolute;
-        bottom: 64px;
+        bottom: 80px;
         left: 24px;
-        /* Relative to hero (24px gap from left) */
         align-items: center;
         gap: 1rem;
         z-index: 50;
@@ -308,9 +292,9 @@
 }
 
 .scroll-track {
-    width: 4px;
+    width: 3px;
     height: 48px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(197, 168, 128, 0.15);
     position: relative;
 }
 
@@ -319,7 +303,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 33%;
+    height: 30%;
     background: var(--color-primary);
 }
 
@@ -329,14 +313,27 @@
 }
 
 .scroll-label {
-    font-family: 'Inter', monospace;
-    font-size: 10px;
-    color: rgba(196, 199, 200, 0.4);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: rgba(197, 168, 128, 0.5);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
 }
 
 .scroll-value {
-    font-family: 'Inter', monospace;
-    font-size: 12px;
+    font-family: var(--font-mono);
+    font-size: 11px;
     color: var(--color-primary);
     font-weight: 600;
+}
+
+/* Desktop-only utility */
+.desktop-only {
+    display: none;
+}
+
+@media (min-width: 768px) {
+    .desktop-only {
+        display: block;
+    }
 }
