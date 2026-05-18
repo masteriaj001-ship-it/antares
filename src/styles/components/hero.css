@@ -6,9 +6,18 @@
 .main-layout {
     position: relative;
     min-height: 100vh;
-    padding-top: 48px;
-    /* Offset for slim navbar */
-    overflow: hidden;
+    padding-top: 48px; /* Offset for slim navbar */
+    margin-left: var(--sidebar-width-mobile);
+    width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+@media (min-width: 1024px) {
+    .main-layout {
+        margin-left: var(--sidebar-width-desktop);
+        width: calc(100% - var(--sidebar-width-desktop));
+    }
 }
 
 /* Background HUD texture */
@@ -24,23 +33,15 @@
 
 .hero {
     position: relative;
-    max-width: 1440px;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 24px;
     min-height: 88vh;
     display: flex;
     align-items: center;
     text-align: left;
-    /* Alineado a la izquierda */
     background: radial-gradient(ellipse at 70% 50%, rgba(99,102,241,0.06) 0%, transparent 60%), var(--bg-primary);
-}
-
-@media (min-width: 1024px) {
-    .hero {
-        padding-left: 88px;
-        /* 64px sidebar + 24px gap */
-        padding-right: 64px;
-    }
 }
 
 .hero-grid {
@@ -66,24 +67,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: 0; /* Base Mobile: sin offset */
     margin-top: 8vh;
     gap: 2rem;
     position: relative;
     z-index: 10;
     max-width: 620px;
-}
-
-@media (min-width: 768px) {
-    .hero-content {
-        margin-left: 10%; /* Tablet: offset */
-    }
-}
-
-@media (min-width: 1024px) {
-    .hero-content {
-        margin-left: max(10%, 160px); /* Desktop: garantiza separación de la columna del indicador fixed */
-    }
 }
 
 /* Tactical Meta */
@@ -363,9 +351,9 @@
 @media (min-width: 1024px) {
     .scroll-indicator {
         display: flex; /* Desktop: visible al lado del sidebar */
-        position: fixed;
+        position: absolute;
         bottom: 64px;
-        left: 88px; /* 64px sidebar + 24px gap */
+        left: 24px; /* Relative to hero (24px gap from left) */
         align-items: center;
         gap: 1rem;
         z-index: 50;

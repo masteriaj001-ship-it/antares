@@ -6,13 +6,7 @@
     position: relative;
     width: 100%;
     background: var(--bg-primary);
-}
-
-@media (min-width: 1024px) {
-    .faq {
-        padding-left: 88px;
-        padding-right: 64px;
-    }
+    padding: var(--space-10) 0;
 }
 
 /* HP-07: Layout 2 columnas (desktop ≥ 1024px) */
@@ -47,12 +41,14 @@
 
 .faq-title {
     font-family: var(--font-heading);
-    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-size: clamp(2rem, 4vw, 3.5rem);
     font-weight: 700;
     color: var(--color-text-main);
     margin: 0;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+    line-height: 1.1;
+    text-wrap: balance;
 }
 
 .faq-subtitle {
