@@ -1,34 +1,45 @@
-## Current Status (v1.6 - Full Footer Implemented)
+# PROJECT STATE | ANTARES Platform v2.0-Alpha
 
-- [x] **P0 Hotfix Resolvido:** Navbar unificada responsivamente en grid horizontal de 3 columnas para Tablet y Desktop.
-- [x] **Hero Section Refactorizada:** Implementada estrategia Mobile-First pura, eliminando `max-width` hacks e implementando separación inteligente (`margin-left: max(10%, 160px)`) para evitar cualquier superposición con el indicador de scroll fixed en escritorio.
-- [x] Navbar responsive blindada (Drawer system + Z-index 9999 en mobile + Clean Static Grid en tablet/desktop)
-- [x] Enlaces horizontales continuos y logotipo centrado geométricamente (cero solapamiento en Tablet)
-- [x] Hero section visualmente impecable en todos los breakpoints (320px, 768px, 1024px, 1440px)
-- [x] Sistema de Spacing Responsivo (Tokens dinámicos @media standard)
-- [x] Pricing section estabilizada (Mobile-first, no overflow) y con UI Premium 2 Columnas
-- [x] Toggle mensual/anual funcional con ARIA landmarks
-- [x] **Motion System (Leyes de la física ANTARES documentadas)**
-- [x] **Layout Constraints (Contrato de diseño inquebrantable)**
-- [x] **Arquitectura Semántica (Main/Footer + SEO Estructural)**
-- [x] **FAQ Accordion Refactorizado:** Implementación de FAQ dinámico bajo el Hero, accesible (ARIA), interactivo con protección de spam clicks y estrategia mobile-first limpia (SP-01 Fallback para no-JS).
-- [x] **Unificación Visual Global Premium:** Glassmorphism + Accent Indigo desplegado a través de Testimonials, Features, Buttons, y Backgrounds Radiales. Iconografía estrictamente Unicode.
-- [x] **Footer Premium Completo (footer.spec.md):** Estructura multi-columna responsiva (desktop 4 cols, tablet 2 cols, mobile 1 col), links integrados de Producto, Empresa y Soporte, badge SYSTEM READY dinámico y links legales.
+Este documento registra el estado de compilación, los hitos alcanzados y las prioridades de desarrollo del proyecto ANTARES.
 
 ---
 
-## Current Visual & Motion Direction
+## 🎯 Hitos Alcanzados (v1.6 - Core Landing Completo)
 
-- **Style:** Dark Editorial Tech / Cinematic Luxury.
-- **Typography:** Plus Jakarta Sans & Inter (Clamp driven).
-- **Motion:** Controlled, heavy, intentional (GPU accelerated).
-- **Constraints:** No horizontal scroll, no fixed widths, no layout-triggering animations.
+- [x] **Estructura Global Sidebar Offset:** Layout unificado con margen izquierdo responsivo (`margin-left: var(--sidebar-width-desktop)`) evitando desbordamientos horizontales.
+- [x] **Hero Section Refactorizada:** Integrada la etiqueta semántica de imagen `hero-ai.png` con efectos cinemáticos de opacidad, contraste y HUD superpuesto.
+- [x] **FAQ Accordion Premium:** Alineación dual-axis simétrica (verticalmente centrado, horizontalmente a la izquierda), sin overrides y con soporte de accesibilidad (ARIA) y fallback sin JavaScript.
+- [x] **Unificación Visual Global:** Glassmorphism (`.card`) y acento índigo configurados centralmente en toda la landing page (Features, Testimonials, Pricing).
+- [x] **Footer Premium de 4 Columnas:** Rejilla totalmente responsiva, dot verde pulsante `SYSTEM READY` y enlaces de navegación y legales estandarizados.
+- [x] **Estructura del Ecosistema de Navegación:** Reordenamiento UX completo (Hero ➔ Features ➔ Testimonials ➔ Pricing ➔ FAQ) eliminando enlaces rotos y enlazando los IDs del navbar real (`#sistemas`, `#operaciones`, `#inteligencia`, `#contacto`).
 
 ---
 
-## Next Priorities (Orchestration Phase)
+## 🧭 Fase 2: Expansión Multi-Página (Hitos Priorizados)
 
-1. **Evitar Agent Drift:** Implementar protocolos de consolidación para que todos los modelos operen bajo la misma lógica.
-2. **Memoria Operativa:** Crear logs de actividad técnica para loops de validación.
-3. **Refinamiento Narrativo:** Alinear los textos de "Protocolo de Consulta" y "Ecosistema" con el tono editorial premium.
-4. **Validación de Performance:** Auditoría de carga y optimización de assets.
+Con el fin de evitar el *agent drift* y cimentar la arquitectura de datos, el equipo de planificación (CEO y Cliente) establece la siguiente prioridad estricta para la Fase 2:
+
+```
+[P1: Operational Console (Dashboard)] ➔ [P2: Core Protocols (Docs)] ➔ [P3: Initiate Operations (Wizard Form)]
+```
+
+### 1. P1: Operational Console (`console.html`)
+*   **Estado:** En fase de Diseño y Especificación Técnica (`/antares/specs/console.spec.md`).
+*   **Objetivo:** Crear un centro de control táctico/militar ultra-premium que simule logs en tiempo real, latencias, y reconfiguraciones de redes de agentes con animaciones GPU optimizadas.
+*   **Contrato de Diseño:** Estética "Densa pero Simple". No saturar; cada elemento debe denotar ingeniería pesada e intencional.
+
+### 2. P2: Core Protocols (`protocols.html`)
+*   **Estado:** Planificado (Fase de Contratos de Datos).
+*   **Objetivo:** Portal de documentación con diseño puramente editorial, bloques de código interactivos y diagramas interactivos explicativos de flujos de agentes.
+
+### 3. P3: Initiate Operations (`operations.html`)
+*   **Estado:** Planificado.
+*   **Objetivo:** Formulario segmentado por pasos (step wizard) premium para captar requerimientos técnicos del cliente y realizar un onboarding interactivo.
+
+---
+
+## 📐 Reglas de Motion & Rendimiento (Fase 2)
+
+-   **GPU Standard:** Las animaciones interactivas del dashboard están restringidas únicamente a propiedades aceleradas por hardware (`transform`, `opacity`).
+-   **No Overshoot:** Sin efectos de rebote elásticos (no elásticos tipo muelle). Curvas de aceleración cinemáticas puras (`cubic-bezier(0.16, 1, 0.3, 1)`).
+-   **Zero Layout Shift:** Prohibido animar propiedades que gatillen procesos de Reflow/Layout en el navegador (`width`, `height`, `margin`, `padding`, `top`, `left`).
