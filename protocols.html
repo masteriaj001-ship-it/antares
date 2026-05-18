@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANTARES | Core Protocols</title>
+    <!-- ANTARES Design System Modules -->
+    <link rel="stylesheet" href="src/styles/main.css">
+    <link rel="stylesheet" href="src/protocols.css">
+
+    <!-- Anti-FOUC System (Flash of Unstyled Content) -->
+    <style>
+        html.js-loading .protocols-hero,
+        html.js-loading .protocol-row,
+        html.js-loading .navbar,
+        html.js-loading .global-sidebar {
+            visibility: hidden;
+        }
+    </style>
+    <script>
+        document.documentElement.classList.add('js-loading');
+        setTimeout(() => document.documentElement.classList.remove('js-loading'), 2500);
+    </script>
+    <noscript>
+        <style>
+            .navbar-nav {
+                position: static !important;
+                transform: none !important;
+                width: 100% !important;
+                height: auto !important;
+                padding: 10px 0 !important;
+                background: var(--color-bg-deep, #121314) !important;
+                border-left: none !important;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+            }
+            .navbar-toggle {
+                display: none !important;
+            }
+            .navbar-links {
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: center !important;
+                gap: 1.5rem !important;
+            }
+            .navbar-links-container {
+                flex-direction: row !important;
+                justify-content: center !important;
+            }
+            /* SP-01: Sin JS: mostrar todos los acordeones abiertos */
+            .protocol-content {
+                height: auto !important;
+                opacity: 1 !important;
+                display: block !important;
+                padding-bottom: 2rem !important;
+            }
+            .protocol-toggle-icon {
+                transform: rotate(90deg) !important;
+            }
+            html.js-loading .protocols-hero,
+            html.js-loading .protocol-row,
+            html.js-loading .navbar,
+            html.js-loading .global-sidebar {
+                visibility: visible !important;
+            }
+        </style>
+    </noscript>
+</head>
+<body>
+    <!-- Sidebar Operacional (Global Izquierda) -->
+    <aside class="global-sidebar">
+        <div class="sidebar-icons">
+            <a href="index.html" class="icon" aria-label="Inicio">⬚</a>
+            <a href="console.html" class="icon" aria-label="Consola Operativa"></a>
+            <a href="protocols.html" class="icon active" aria-label="Repositorio de Protocolos">⑆</a>
+            <a href="index.html#contacto" class="icon" aria-label="Contacto">✉</a>
+        </div>
+    </aside>
+
+    <div class="nav-overlay"></div>
+    <header class="navbar">
+        <div class="navbar-content">
+            <!-- Mobile View -->
+            <a href="index.html" class="nav-brand-mobile mobile-only">ANTARES</a>
+            <button class="navbar-toggle mobile-only" aria-expanded="false" aria-label="Abrir menú">
+                <span></span><span></span><span></span>
+            </button>
+
+            <!-- Navigation Drawer & Desktop/Tablet Layout -->
+            <nav class="navbar-nav">
+                <div class="navbar-links-container">
+                    <ul class="navbar-links nav-left">
+                        <li><a href="index.html#sistemas">SYSTEMS</a></li>
+                        <li><a href="console.html">CONSOLE</a></li>
+                    </ul>
+
+                    <div class="nav-center brand-desktop">
+                        <span class="icon-pause desktop-only">॥</span>
+                        <a href="index.html" class="nav-brand">ANTARES</a>
+                    </div>
+
+                    <ul class="navbar-links nav-right">
+                        <li><a href="protocols.html" class="active">PROTOCOLS</a></li>
+                        <li><a href="index.html#contacto">CONTACT</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Editorial Layout -->
+    <main class="main-layout protocols-layout">
+        <div class="hud-scanline"></div>
+
+        <section class="section protocols-hero">
+            <div class="editorial-container">
+                <div class="tactical-meta pulse">
+                    <span class="meta-dot"></span>
+                    <span class="meta-text" id="protocols-engaged-counter">[ PROTOCOLS_ENGAGED: 05 ]</span>
+                    <span class="meta-line"></span>
+                </div>
+                
+                <h1 class="editorial-title">PROTOCOLOS<br>DE ORQUESTACIÓN</h1>
+                <p class="editorial-subtitle">Especificaciones de comportamiento autónomo y firmas de datos del ecosistema inteligente ANTARES.</p>
+            </div>
+        </section>
+
+        <!-- Protocols Rows Section -->
+        <section class="protocols-list-section">
+            <div class="editorial-container">
+                <!-- Protocol 01 -->
+                <article class="protocol-row" id="p-01">
+                    <header class="protocol-header">
+                        <div class="protocol-meta">
+                            <span class="protocol-id">P-01</span>
+                            <span class="protocol-status-badge critical">CRÍTICO</span>
+                        </div>
+                        <div class="protocol-title-group">
+                            <h2 class="protocol-name">ORQUESTADOR ATLAS</h2>
+                            <span class="protocol-role">Ingeniería de Software & Compilación</span>
+                        </div>
+                        <button class="protocol-toggle-btn" aria-label="Expandir protocolo ATLAS">
+                            <span class="protocol-toggle-icon">➔</span>
+                        </button>
+                    </header>
+                    <div class="protocol-content">
+                        <div class="protocol-inner-grid">
+                            <div class="protocol-description-block">
+                                <span class="spec-label">DESCRIPCIÓN DE OPERACIÓN</span>
+                                <p class="spec-paragraph">Orquestación de compilaciones, refactorización de código y resolución autónoma de colisiones de código en entornos sandbox seguros. Garantiza la consistencia semántica y el apego estricto a las especificaciones dadas.</p>
+                            </div>
+                            <div class="protocol-code-block">
+                                <span class="spec-label">FIRMA DE PROTOCOLO // ATLAS_CORE.JSON</span>
+                                <pre><code class="language-json">{
+  "protocol": "ATLAS_CORE",
+  "version": "v2.4-stable",
+  "pipeline": [
+    "parse_ast",
+    "resolve_conflicts",
+    "run_linter",
+    "compile"
+  ]
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Protocol 02 -->
+                <article class="protocol-row" id="p-02">
+                    <header class="protocol-header">
+                        <div class="protocol-meta">
+                            <span class="protocol-id">P-02</span>
+                            <span class="protocol-status-badge performance">HI_PRIORITY</span>
+                        </div>
+                        <div class="protocol-title-group">
+                            <h2 class="protocol-name">INGENIERÍA DE MOVIMIENTO NYX</h2>
+                            <span class="protocol-role">Rendimiento UI/UX & Animación Cinematic</span>
+                        </div>
+                        <button class="protocol-toggle-btn" aria-label="Expandir protocolo NYX">
+                            <span class="protocol-toggle-icon">➔</span>
+                        </button>
+                    </header>
+                    <div class="protocol-content">
+                        <div class="protocol-inner-grid">
+                            <div class="protocol-description-block">
+                                <span class="spec-label">DESCRIPCIÓN DE OPERACIÓN</span>
+                                <p class="spec-paragraph">Renderizado cinematográfico avanzado, orquestación de transiciones fluidas con GSAP, aceleración de animaciones por hardware en GPU y prevención del destello de contenido no estilizado (FOUC).</p>
+                            </div>
+                            <div class="protocol-code-block">
+                                <span class="spec-label">FIRMA DE PROTOCOLO // NYX_MOTION.JSON</span>
+                                <pre><code class="language-json">{
+  "engine": "CHRONOS_GSAP",
+  "easing": "cubic-bezier(0.16, 1, 0.3, 1)",
+  "hardware_acceleration": true,
+  "frame_target": 60.0
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Protocol 03 -->
+                <article class="protocol-row" id="p-03">
+                    <header class="protocol-header">
+                        <div class="protocol-meta">
+                            <span class="protocol-id">P-03</span>
+                            <span class="protocol-status-badge assurance">AUDIT</span>
+                        </div>
+                        <div class="protocol-title-group">
+                            <h2 class="protocol-name">AUDITORÍA DE ESPECIFICACIONES ECHO</h2>
+                            <span class="protocol-role">Contratos de APIs & QA Continuo</span>
+                        </div>
+                        <button class="protocol-toggle-btn" aria-label="Expandir protocolo ECHO">
+                            <span class="protocol-toggle-icon">➔</span>
+                        </button>
+                    </header>
+                    <div class="protocol-content">
+                        <div class="protocol-inner-grid">
+                            <div class="protocol-description-block">
+                                <span class="spec-label">DESCRIPCIÓN DE OPERACIÓN</span>
+                                <p class="spec-paragraph">Auditoría estricta de firmas de datos de la interfaz de usuario, validaciones semánticas automatizadas en el árbol DOM y control inmunológico contra desvíos visuales o funcionales (agent drift).</p>
+                            </div>
+                            <div class="protocol-code-block">
+                                <span class="spec-label">FIRMA DE PROTOCOLO // ECHO_AUDIT.JSON</span>
+                                <pre><code class="language-json">{
+  "audit_mode": "STRICT_CONTRACT",
+  "lint_targets": [
+    "html",
+    "js_esm",
+    "css_variables"
+  ],
+  "tolerance": 0.000
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Protocol 04 -->
+                <article class="protocol-row" id="p-04">
+                    <header class="protocol-header">
+                        <div class="protocol-meta">
+                            <span class="protocol-id">P-04</span>
+                            <span class="protocol-status-badge restricted">RESTRINGIDO</span>
+                        </div>
+                        <div class="protocol-title-group">
+                            <h2 class="protocol-name">SISTEMA INMUNOLÓGICO SENTINEL</h2>
+                            <span class="protocol-role">Aislamiento de Hilos & Seguridad Operativa</span>
+                        </div>
+                        <button class="protocol-toggle-btn" aria-label="Expandir protocolo SENTINEL">
+                            <span class="protocol-toggle-icon">➔</span>
+                        </button>
+                    </header>
+                    <div class="protocol-content">
+                        <div class="protocol-inner-grid">
+                            <div class="protocol-description-block">
+                                <span class="spec-label">DESCRIPCIÓN DE OPERACIÓN</span>
+                                <p class="spec-paragraph">Aislamiento de la ejecución de procesos inseguros, auditoría estática de vulnerabilidades e inmunización en tiempo real. Controla las políticas de RLS en bases de datos y la sanitización del sandbox.</p>
+                            </div>
+                            <div class="protocol-code-block">
+                                <span class="spec-label">FIRMA DE PROTOCOLO // SENTINEL_SEC.JSON</span>
+                                <pre><code class="language-json">{
+  "sandbox_type": "ISOLATED_THREAD",
+  "encryption": "AES_256_GCM",
+  "rls_active": true,
+  "static_checks": "COMPLIANT"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Protocol 05 -->
+                <article class="protocol-row" id="p-05">
+                    <header class="protocol-header">
+                        <div class="protocol-meta">
+                            <span class="protocol-id">P-05</span>
+                            <span class="protocol-status-badge routing">SYS_OP</span>
+                        </div>
+                        <div class="protocol-title-group">
+                            <h2 class="protocol-name">ENRUTADOR DE ESTADOS HERMES</h2>
+                            <span class="protocol-role">Mensajería en Tiempo Real & Telemetría</span>
+                        </div>
+                        <button class="protocol-toggle-btn" aria-label="Expandir protocolo HERMES">
+                            <span class="protocol-toggle-icon">➔</span>
+                        </button>
+                    </header>
+                    <div class="protocol-content">
+                        <div class="protocol-inner-grid">
+                            <div class="protocol-description-block">
+                                <span class="spec-label">DESCRIPCIÓN DE OPERACIÓN</span>
+                                <p class="spec-paragraph">Transmisión y enrutamiento en tiempo real de estados de telemetría de red, canales bidireccionales con gRPC y WebSockets y orquestación de colas distribuidas con límites de retención (max 50 logs).</p>
+                            </div>
+                            <div class="protocol-code-block">
+                                <span class="spec-label">FIRMA DE PROTOCOLO // HERMES_ROUTER.JSON</span>
+                                <pre><code class="language-json">{
+  "transport": "gRPC_WEBSOCKET",
+  "heartbeat_interval_ms": 600,
+  "max_queue_depth": 50,
+  "compression": "BROTLI"
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer centralizado -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand-col">
+                    <div class="footer-logo">
+                        <span class="logo-symbol">॥</span>
+                        <span class="logo-text">ANTARES</span>
+                    </div>
+                    <p class="footer-tagline">Sistemas inteligentes autónomos de grado táctico.</p>
+                </div>
+                <div class="footer-links-col">
+                    <span class="footer-col-title">Navegación</span>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Sistemas</a></li>
+                        <li><a href="console.html">Consola Operativa</a></li>
+                        <li><a href="protocols.html">Repositorio de Protocolos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-col">
+                    <span class="footer-col-title">Legal</span>
+                    <ul class="footer-links">
+                        <li><a href="#">Security Spec</a></li>
+                        <li><a href="#">Audits</a></li>
+                    </ul>
+                </div>
+                <div class="footer-status-col">
+                    <div class="system-status-indicator">
+                        <span class="status-indicator-dot"></span>
+                        <span class="status-indicator-text">SYSTEM READY</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="copyright">© 2026 ANTARES. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP & Core Controller -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script type="module" src="src/protocols.js"></script>
+</body>
+</html>

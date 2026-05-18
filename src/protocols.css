@@ -1,0 +1,266 @@
+/* ==========================================================================
+   COMPONENT: PROTOCOLS REPOSITORY (EDITORIAL TECH)
+   ========================================================================== */
+
+.protocols-layout {
+    margin-left: 0;
+    padding-top: 80px;
+    background: #0A0A0F;
+    min-height: calc(100vh - 48px);
+    box-sizing: border-box;
+}
+
+@media (min-width: 1024px) {
+    .protocols-layout {
+        margin-left: 64px; /* RB-04: Compensar sidebar global izquierdo */
+        padding-top: 100px;
+    }
+}
+
+.editorial-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* --- Telemetría Superior --- */
+.protocols-hero {
+    padding-bottom: 3rem;
+}
+
+.protocols-hero .tactical-meta {
+    margin-bottom: 1.5rem;
+}
+
+.editorial-title {
+    font-family: var(--font-heading, 'Syncopate', sans-serif);
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 4px;
+    color: var(--color-text-main, #e3e2e3);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+}
+
+.editorial-subtitle {
+    font-family: var(--font-main, 'JetBrains Mono', monospace);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--color-text-muted, #6b7280);
+    max-width: 600px;
+}
+
+/* --- Filas de Protocolos --- */
+.protocols-list-section {
+    padding-bottom: 8rem; /* Garantiza el 40% de espacio negativo en el scroll inferior */
+}
+
+.protocol-row {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    transition: background-color 0.4s var(--easing-cinematic);
+    position: relative;
+}
+
+.protocol-row:last-of-type {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.protocol-row:hover {
+    background-color: rgba(255, 255, 255, 0.01);
+}
+
+/* Header de la Fila */
+.protocol-header {
+    display: grid;
+    grid-template-columns: 80px 1fr auto;
+    align-items: center;
+    padding: 2rem 0;
+    cursor: pointer;
+    user-select: none;
+}
+
+.protocol-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.protocol-id {
+    font-family: var(--font-main);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-primary, #6366F1);
+}
+
+.protocol-status-badge {
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 2px 4px;
+    border-radius: 3px;
+    width: fit-content;
+    text-transform: uppercase;
+}
+
+/* Badges temáticos */
+.protocol-status-badge.critical {
+    background: rgba(239, 68, 68, 0.1);
+    color: #EF4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.protocol-status-badge.performance {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10B981;
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.protocol-status-badge.assurance {
+    background: rgba(99, 102, 241, 0.1);
+    color: #6366F1;
+    border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.protocol-status-badge.restricted {
+    background: rgba(245, 158, 11, 0.1);
+    color: #F59E0B;
+    border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.protocol-status-badge.routing {
+    background: rgba(107, 114, 128, 0.15);
+    color: #9CA3AF;
+    border: 1px solid rgba(107, 114, 128, 0.25);
+}
+
+.protocol-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding-left: 1rem;
+}
+
+.protocol-name {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--color-text-main);
+}
+
+.protocol-role {
+    font-family: var(--font-main);
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+}
+
+.protocol-toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+}
+
+.protocol-toggle-icon {
+    font-size: 0.75rem;
+    display: inline-block;
+    transition: transform 0.4s var(--easing-cinematic);
+}
+
+.protocol-row.active .protocol-toggle-icon {
+    transform: rotate(90deg);
+}
+
+.protocol-row.active .protocol-toggle-btn {
+    color: var(--color-primary);
+}
+
+/* Contenido Expandible */
+.protocol-content {
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.protocol-inner-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.03);
+}
+
+@media (min-width: 768px) {
+    .protocol-inner-grid {
+        grid-template-columns: 1fr 1fr; /* Estructura simétrica de 2 columnas en pantallas medianas/grandes */
+    }
+}
+
+.protocol-description-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.spec-label {
+    font-family: var(--font-heading);
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--color-primary);
+}
+
+.spec-paragraph {
+    font-family: var(--font-main);
+    font-size: 0.75rem;
+    line-height: 1.7;
+    color: var(--color-text-main);
+}
+
+.protocol-code-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.protocol-code-block pre {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    padding: 1rem;
+    margin: 0;
+    overflow-x: auto;
+}
+
+.protocol-code-block code {
+    font-family: var(--font-mono, 'JetBrains Mono', monospace);
+    font-size: 0.7rem;
+    line-height: 1.5;
+    color: #818CF8;
+}
+
+/* ==========================================================================
+   RESPONSIVE TABLET & DESKTOP ADJUSTMENTS
+   ========================================================================== */
+@media (max-width: 767px) {
+    .editorial-title {
+        font-size: 1.75rem;
+        letter-spacing: 2px;
+    }
+
+    .protocol-header {
+        grid-template-columns: 70px 1fr auto;
+        padding: 1.5rem 0;
+    }
+
+    .protocol-name {
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+    }
+}
