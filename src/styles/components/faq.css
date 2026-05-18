@@ -6,7 +6,6 @@
     position: relative;
     width: 100%;
     background: var(--bg-primary);
-    padding: var(--space-10) 0;
 }
 
 /* HP-07: Layout 2 columnas (desktop ≥ 1024px) */
