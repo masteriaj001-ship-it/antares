@@ -1,439 +1,368 @@
-/**
- * ANTARES OPERATIONAL CONSOLE CONTROLLER
- * Strict Implementation of /antares/specs/console.spec.md
- */
-
 class AntaresConsoleController {
-    constructor() {
+    constructor(config = {}) {
         this.isActive = true;
+        this.agents = [];
         this.maxLogs = 50;
-        this.logCount = 0;
         this.intervalId = null;
+        this.logIntervalId = null;
         this.telemetryIntervalId = null;
         this.selectedAgentId = null;
-        
-        // Hardcoded realistic agent initial states (3x3 grid)
-        this.agents = [
-            { id: 'agt_01', name: 'Protocol Orchestrator', status: 'active', latency: 0.24, threads: 8, memory: 0.65 },
-            { id: 'agt_02', name: 'Autonomous Executor', status: 'active', latency: 0.12, threads: 6, memory: 0.42 },
-            { id: 'agt_03', name: 'Adaptive Learner', status: 'active', latency: 0.76, threads: 4, memory: 0.88 },
-            { id: 'agt_04', name: 'Memory Synapser', status: 'idle', latency: 0.04, threads: 1, memory: 0.15 },
-            { id: 'agt_05', name: 'Security Sentinel', status: 'active', latency: 0.08, threads: 2, memory: 0.28 },
-            { id: 'agt_06', name: 'Network Connector', status: 'active', latency: 0.32, threads: 5, memory: 0.53 },
-            { id: 'agt_07', name: 'Storage Pipeline', status: 'idle', latency: 0.05, threads: 1, memory: 0.09 },
-            { id: 'agt_08', name: 'Buffer Sync', status: 'active', latency: 0.18, threads: 3, memory: 0.35 },
-            { id: 'agt_09', name: 'Cache Resolver', status: 'error', latency: 0.00, threads: 0, memory: 0.00 }
-        ];
-
-        // Tactical simulated log messages patterns
-        this.logTemplates = [
-            { category: 'system', level: 'info', message: 'PROTOCOL_ORCHESTRATOR: Sync dump completed.' },
-            { category: 'agent', level: 'success', message: 'AUTONOMOUS_EXECUTOR: State synchronized with cluster.' },
-            { category: 'network', level: 'info', message: 'NETWORK_CONNECTOR: Connection established in gateway G-34.' },
-            { category: 'security', level: 'info', message: 'SECURITY_SENTINEL: Port scan mitigated successfully.' },
-            { category: 'agent', level: 'info', message: 'ADAPTIVE_LEARNER: Weight decay calculation updated.' },
-            { category: 'system', level: 'warn', message: 'BUFFER_SYNC: Flush buffer queue near max-load (85%).' },
-            { category: 'security', level: 'warn', message: 'SECURITY_SENTINEL: Access hash expired for node agt_04.' },
-            { category: 'network', level: 'error', message: 'CACHE_RESOLVER: Node response timed out (gRPC fail).' },
-            { category: 'system', level: 'success', message: 'CONSOLE_CONTROLLER: Heartbeat verified.' }
-        ];
+        this.lastLogTime = 0;
+        this.pendingLogs = [];
+        this.debounceTimer = null;
     }
 
-    /**
-     * Initializes console DOM binding and setups initial states
-     */
     initialize() {
-        console.log('[ANTARES] Initiating Operational Console Module...');
-
-        // Bind DOM nodes
-        this.dom = {
-            latency: document.getElementById('latency-value'),
-            activeAgents: document.getElementById('active-agents'),
-            playPauseBtn: document.getElementById('play-pause-btn'),
-            pulse: document.getElementById('pulse-indicator'),
-            agentGrid: document.getElementById('agent-grid'),
-            terminal: document.getElementById('terminal'),
-            detailPanel: document.getElementById('agent-detail-panel'),
-            detailContent: document.getElementById('agent-detail-content'),
-            closeDetailBtn: document.getElementById('close-detail'),
-            svgLines: document.querySelectorAll('.network-line'),
-            cpuBars: [
-                document.getElementById('cpu-bar-1'),
-                document.getElementById('cpu-bar-2'),
-                document.getElementById('cpu-bar-3'),
-                document.getElementById('cpu-bar-4'),
-                document.getElementById('cpu-bar-5'),
-                document.getElementById('cpu-bar-6')
-            ]
-        };
-
-        // Render standard Grid Nodes
+        this.initAgents();
         this.renderAgentGrid();
-
-        // Setup DOM event listeners
-        this.dom.playPauseBtn.addEventListener('click', () => this.toggleSimulationState());
-        this.dom.closeDetailBtn.addEventListener('click', () => this.closeAgentDetail());
-
-        // Start loops
+        this.bindEvents();
         this.startStream();
-        this.startTelemetryLoop();
-        this.triggerInitialTelemetryUpdate();
-
-        // Initial setup for pulse
-        if (this.dom.pulse) {
-            this.dom.pulse.classList.add('pulsing');
-        }
     }
 
-    /**
-     * Render matrix of agent nodes inside DOM
-     */
+    initAgents() {
+        this.agents = [
+            { id: 'agt_01', name: 'ATLAS', role: 'Implementador de Código', status: 'active' },
+            { id: 'agt_02', name: 'NYX', role: 'Atmósfera Visual', status: 'active' },
+            { id: 'agt_03', name: 'ECHO', role: 'Auditor de Especificaciones', status: 'active' },
+            { id: 'agt_04', name: 'SENTINEL', role: 'Guardián del Sandbox', status: 'idle' },
+            { id: 'agt_05', name: 'HERMES', role: 'Enrutador de Protocolos', status: 'active' },
+            { id: 'agt_06', name: 'CHRONOS', role: 'Motor de Animación GSAP', status: 'active' },
+            { id: 'agt_07', name: 'HESTIA', role: 'Gestor de Estado y Cache', status: 'idle' },
+            { id: 'agt_08', name: 'ARES', role: 'Optimizador de LCP/GPU', status: 'active' },
+            { id: 'agt_09', name: 'ZEPHYR', role: 'Controlador de FOUC/CSS', status: 'error' }
+        ];
+
+        this.agents.forEach(agent => {
+            agent.latency = (Math.random() * 0.0006 + 0.00025) * 1000;
+            agent.threads = Math.floor(Math.random() * 8) + 1;
+            agent.memory = Math.random() * 0.5 + 0.2;
+        });
+    }
+
     renderAgentGrid() {
-        if (!this.dom.agentGrid) return;
-        this.dom.agentGrid.innerHTML = '';
+        const grid = document.getElementById('agent-grid');
+        if (!grid) return;
+
+        grid.innerHTML = '';
 
         this.agents.forEach(agent => {
             const node = document.createElement('div');
-            node.className = `agent-node ${this.selectedAgentId === agent.id ? 'selected' : ''}`;
-            node.dataset.id = agent.id;
-            
+            node.className = 'agent-node';
+            node.dataset.agentId = agent.id;
+
             node.innerHTML = `
-                <div class="node-header">
-                    <span class="node-name" title="${agent.name}">${agent.name}</span>
-                    <span class="node-status-indicator ${agent.status}"></span>
-                </div>
-                <div class="node-footer">
-                    <span class="node-id">${agent.id.toUpperCase()}</span>
-                    <span class="node-latency">${agent.status === 'error' ? '--.--' : agent.latency.toFixed(2)} ms</span>
-                </div>
+                <span class="node-status ${agent.status}"></span>
+                <span class="node-id">${agent.id.toUpperCase()}</span>
+                <span class="node-name">${agent.name}</span>
+                <span class="node-role">${agent.role}</span>
             `;
 
-            // Click listener for node selection
             node.addEventListener('click', () => this.selectAgent(agent.id));
-            this.dom.agentGrid.appendChild(node);
+            grid.appendChild(node);
         });
+
+        this.updateActiveAgents();
     }
 
-    /**
-     * Toggles play/pause state
-     */
-    toggleSimulationState() {
-        this.isActive = !this.isActive;
-        
-        if (this.isActive) {
-            this.startStream();
-            this.startTelemetryLoop();
-            
-            // UI Update
-            this.dom.playPauseBtn.classList.remove('paused');
-            this.dom.playPauseBtn.querySelector('.btn-icon').innerHTML = '&#x275A;&#x275A;';
-            this.dom.playPauseBtn.querySelector('.btn-text').innerText = 'PAUSE';
-            this.dom.pulse.classList.add('pulsing');
-            
-            this.pushLog({
-                category: 'system',
-                level: 'info',
-                message: 'CONSOLE_CONTROLLER: Simulation stream resumed.'
-            });
-        } else {
-            this.stopStream();
-            
-            // UI Update
-            this.dom.playPauseBtn.classList.add('paused');
-            this.dom.playPauseBtn.querySelector('.btn-icon').innerHTML = '&#9654;';
-            this.dom.playPauseBtn.querySelector('.btn-text').innerText = 'PLAY';
-            this.dom.pulse.classList.remove('pulsing');
-            
-            this.pushLog({
-                category: 'system',
-                level: 'warn',
-                message: 'CONSOLE_CONTROLLER: Simulation stream suspended by user.'
-            });
+    bindEvents() {
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        if (playPauseBtn) {
+            playPauseBtn.addEventListener('click', () => this.toggleSimulation());
+        }
+
+        const closeDetailBtn = document.getElementById('close-detail');
+        if (closeDetailBtn) {
+            closeDetailBtn.addEventListener('click', () => this.closeDetailPanel());
         }
     }
 
-    /**
-     * Start log dynamic stream generator
-     */
     startStream() {
-        if (this.intervalId) clearInterval(this.intervalId);
-
-        const triggerNextLog = () => {
-            const nextInterval = Math.floor(Math.random() * 1000) + 800; // random 800ms-1800ms
-            this.intervalId = setTimeout(() => {
-                if (this.isActive) {
-                    this.generateSimulatedLog();
-                    triggerNextLog();
-                }
-            }, nextInterval);
-        };
-        
-        triggerNextLog();
-    }
-
-    /**
-     * Stops simulation stream timer
-     */
-    stopStream() {
-        if (this.intervalId) {
-            clearTimeout(this.intervalId);
-            this.intervalId = null;
-        }
-        if (this.telemetryIntervalId) {
-            clearInterval(this.telemetryIntervalId);
-            this.telemetryIntervalId = null;
-        }
-        
-        // Zero-out variable animation bars
-        this.dom.cpuBars.forEach(bar => {
-            if (bar) bar.style.height = '10%';
-        });
-    }
-
-    /**
-     * Start telemetry loops updating dynamic variables in DOM
-     */
-    startTelemetryLoop() {
-        if (this.telemetryIntervalId) clearInterval(this.telemetryIntervalId);
+        this.updateTelemetry();
+        this.pushInitialLogs();
 
         this.telemetryIntervalId = setInterval(() => {
-            if (!this.isActive) return;
-            this.updateSystemTelemetry();
-        }, 600); // refresh every 600ms
+            if (this.isActive) this.updateTelemetry();
+        }, 600);
+
+        this.scheduleNextLog();
     }
 
-    triggerInitialTelemetryUpdate() {
-        this.updateSystemTelemetry();
-        this.pushLog({
-            category: 'system',
-            level: 'success',
-            message: 'CORE_SYSTEM_ONLINE: Console stream active and monitoring node hashes.'
-        });
+    stopStream() {
+        if (this.intervalId) clearTimeout(this.intervalId);
+        if (this.telemetryIntervalId) clearInterval(this.telemetryIntervalId);
+        if (this.logIntervalId) clearInterval(this.logIntervalId);
+        if (this.debounceTimer) clearTimeout(this.debounceTimer);
     }
 
-    /**
-     * Dynamic calculations updating header indicators
-     */
-    updateSystemTelemetry() {
-        // Latency simulation (0.00025ms to 0.00085ms -> represented in UI)
-        const baseLatency = (Math.random() * (0.85 - 0.25) + 0.25).toFixed(4);
-        if (this.dom.latency) {
-            this.dom.latency.innerText = baseLatency;
+    toggleSimulation() {
+        this.isActive = !this.isActive;
+
+        const btn = document.getElementById('play-pause-btn');
+        const pulse = document.getElementById('pulse-indicator');
+        const streamDot = document.querySelector('.stream-dot');
+
+        if (this.isActive) {
+            btn.innerHTML = '<span class="btn-icon">&#x275A;&#x275A;</span><span class="btn-text">[ PAUSAR MONITOREO ]</span>';
+            pulse.classList.remove('paused');
+            const streamStatus = document.querySelector('.stream-status');
+            if (streamStatus) streamStatus.textContent = 'TRANSMISIÓN EN VIVO';
+            streamDot.style.animation = 'pulse 1s ease-in-out infinite';
+            this.scheduleNextLog();
+        } else {
+            btn.innerHTML = '<span class="btn-icon">&#x25B6;</span><span class="btn-text">[ REANUDAR SIMULACIÓN ]</span>';
+            pulse.classList.add('paused');
+            const streamStatus = document.querySelector('.stream-status');
+            if (streamStatus) streamStatus.textContent = 'TRANSMISIÓN PAUSADA';
+            streamDot.style.animation = 'none';
+            if (this.logIntervalId) clearTimeout(this.logIntervalId);
+        }
+    }
+
+    updateTelemetry() {
+        const latency = Math.random() * 0.0006 + 0.00025;
+        const latencyValue = document.getElementById('latency-value');
+        if (latencyValue) {
+            latencyValue.textContent = latency.toFixed(6);
         }
 
-        // Active Agents Calculation
-        const activeCount = this.agents.filter(a => a.status === 'active').length;
-        if (this.dom.activeAgents) {
-            this.dom.activeAgents.innerText = `0${activeCount}`;
-        }
+        const cpuBars = document.querySelectorAll('.cpu-bar');
+        const cpuLoad = Math.floor(Math.random() * 36) + 12;
+        const activeBars = Math.ceil(cpuLoad / 8);
 
-        // Update CPU Graph bars sutilmente
-        this.dom.cpuBars.forEach(bar => {
-            if (!bar) return;
-            const newHeight = Math.floor(Math.random() * (90 - 15) + 15);
-            bar.style.height = `${newHeight}%`;
-            
-            if (newHeight > 70) {
+        cpuBars.forEach((bar, i) => {
+            if (i < activeBars) {
                 bar.classList.add('active');
+                bar.style.height = `${Math.random() * 10 + 6}px`;
             } else {
                 bar.classList.remove('active');
+                bar.style.height = '4px';
             }
         });
+    }
 
-        // Update selected agent if panel is open to simulate live data
-        if (this.selectedAgentId) {
-            this.updateAgentDetails(this.selectedAgentId, false);
+    updateActiveAgents() {
+        const activeCount = this.agents.filter(a => a.status === 'active').length;
+        const counter = document.getElementById('active-agents');
+        if (counter) {
+            counter.textContent = String(activeCount).padStart(2, '0');
         }
     }
 
-    /**
-     * Pick a random template and push a simulated operation line
-     */
-    generateSimulatedLog() {
-        const randomIndex = Math.floor(Math.random() * this.logTemplates.length);
-        const template = this.logTemplates[randomIndex];
-        
-        // Randomly modify message slightly to avoid total repetitive feel
-        let cleanMsg = template.message;
-        if (template.category === 'agent') {
-            const randomAgent = this.agents[Math.floor(Math.random() * this.agents.length)];
-            cleanMsg = cleanMsg.replace('AUTONOMOUS_EXECUTOR', randomAgent.name.toUpperCase().replace(' ', '_'));
-        }
+    pushInitialLogs() {
+        const initialLogs = [
+            { category: 'system', level: 'success', message: 'NÚCLEO EN LÍNEA: Inicializando orquestación de agentes...' },
+            { category: 'system', level: 'success', message: 'CONEXIÓN EXITOSA: Servidor Vite sirviendo en puerto activo.' }
+        ];
 
-        this.pushLog({
-            category: template.category,
-            level: template.level,
-            message: cleanMsg
+        initialLogs.forEach((log, i) => {
+            setTimeout(() => this.pushLog(log), i * 200);
         });
     }
 
-    /**
-     * Inject structured logging into simulated terminal DOM
-     */
-    pushLog(log) {
-        if (!this.dom.terminal) return;
+    scheduleNextLog() {
+        if (!this.isActive) return;
 
-        // Clean initial No-JS fallback placeholder on first log injection
-        const fallback = this.dom.terminal.querySelector('.noscript-fallback');
-        if (fallback) {
-            fallback.remove();
+        const delay = Math.random() * 1000 + 800;
+        this.logIntervalId = setTimeout(() => {
+            this.generateLog();
+            this.scheduleNextLog();
+        }, delay);
+    }
+
+    generateLog() {
+        const protocols = ['TCP', 'UDP', 'HTTP/3', 'gRPC', 'WebSocket'];
+        const categories = ['system', 'agent', 'security', 'network'];
+        const levels = ['info', 'info', 'info', 'success', 'warn', 'error'];
+
+        const messages = [
+            'Handshake protocol completed',
+            'Cache invalidation triggered',
+            'Memory buffer threshold reached',
+            'Thread pool resize initiated',
+            'Encryption handshake success',
+            'Connection pool rotation',
+            'Telemetry batch transmitted',
+            'Health check passed',
+            'Rate limiter triggered',
+            'Agent heartbeat acknowledged',
+            'Data integrity verified',
+            'Load balancer redirect',
+            'Circuit breaker engaged',
+            'Token refresh cycle',
+            'Priority queue overflow warning',
+            'Zero-downtime deployment sync',
+            'Consensus protocol voted',
+            'Deadlock detection resolved'
+        ];
+
+        const log = {
+            category: categories[Math.floor(Math.random() * categories.length)],
+            level: levels[Math.floor(Math.random() * levels.length)],
+            message: `${protocols[Math.floor(Math.random() * protocols.length)]} | ${messages[Math.floor(Math.random() * messages.length)]}`
+        };
+
+        const now = Date.now();
+        if (now - this.lastLogTime < 100) {
+            this.pendingLogs.push(log);
+            this.handleDebounce();
+            return;
         }
 
-        // Create timestamp
-        const now = new Date();
-        const hrs = String(now.getHours()).padStart(2, '0');
-        const mins = String(now.getMinutes()).padStart(2, '0');
-        const secs = String(now.getSeconds()).padStart(2, '0');
-        const ms = String(now.getMilliseconds()).padStart(3, '0');
-        const timeStr = `${hrs}:${mins}:${secs}.${ms}`;
+        this.pushLog(log);
+        this.lastLogTime = now;
+    }
 
-        const logNode = document.createElement('div');
-        logNode.className = `log-line ${log.level || 'info'}`;
-        logNode.innerHTML = `
-            <span class="log-timestamp">[${timeStr}]</span>
-            <span class="log-category ${log.category}">[${log.category}]</span>
-            <span class="log-message">${log.message}</span>
+    handleDebounce() {
+        if (this.debounceTimer) return;
+
+        this.debounceTimer = setTimeout(() => {
+            if (this.pendingLogs.length > 1) {
+                const count = this.pendingLogs.length;
+                const groupLog = {
+                    category: 'system',
+                    level: 'info',
+                    message: `MULTIPLE_AGENTS_SYNCED (x${count})`
+                };
+                this.pushLog(groupLog, true);
+            }
+            this.pendingLogs = [];
+            this.debounceTimer = null;
+        }, 100);
+    }
+
+    pushLog(log, isGrouped = false) {
+        const terminal = document.getElementById('terminal');
+        if (!terminal) return;
+
+        const timestamp = this.getTimestamp();
+        const logLine = document.createElement('div');
+        logLine.className = 'log-line';
+
+        const categoryMap = {
+            system: 'SYS',
+            agent: 'AGT',
+            security: 'SEC',
+            network: 'NET'
+        };
+        const categoryLabel = categoryMap[log.category] || 'LOG';
+
+        logLine.innerHTML = `
+            <span class="timestamp">[${timestamp}]</span>
+            <span class="level-${log.level}">
+                <span class="category">[${categoryLabel}]</span>
+                <span class="message">${log.message}</span>
+            </span>
         `;
 
-        this.dom.terminal.appendChild(logNode);
-        this.logCount++;
+        terminal.appendChild(logLine);
 
-        // Memory leak prevention (limits terminal logs list to 50 entries)
-        if (this.logCount > this.maxLogs) {
-            const firstLog = this.dom.terminal.querySelector('.log-line');
-            if (firstLog) firstLog.remove();
-            this.logCount--;
+        while (terminal.children.length > this.maxLogs) {
+            terminal.removeChild(terminal.firstChild);
         }
 
-        // Smooth scroll to bottom
-        this.dom.terminal.scrollTop = this.dom.terminal.scrollHeight;
+        terminal.scrollTop = terminal.scrollHeight;
     }
 
-    /**
-     * Handles agent node selection
-     */
-    selectAgent(agentId) {
-        this.selectedAgentId = agentId;
-        
-        // Re-render Nodes Grid to reflect selection state
-        this.renderAgentGrid();
+    getTimestamp() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const ms = String(now.getMilliseconds()).padStart(3, '0');
+        return `${hours}:${minutes}:${seconds}.${ms}`;
+    }
 
-        // Highlight visual lines relative to network connections
-        this.highlightNetworkLines(agentId);
+    selectAgent(id) {
+        this.selectedAgentId = id;
 
-        // Slide Open drawer panel
-        this.updateAgentDetails(agentId, true);
-        this.dom.detailPanel.classList.add('open');
-
-        this.pushLog({
-            category: 'agent',
-            level: 'info',
-            message: `CONSOLE_CONTROLLER: Focus locked on node ${agentId.toUpperCase()} for full diagnostic diagnostic diagnostic telemetry.`
+        document.querySelectorAll('.agent-node').forEach(node => {
+            node.classList.remove('selected');
         });
+
+        const selectedNode = document.querySelector(`[data-agent-id="${id}"]`);
+        if (selectedNode) {
+            selectedNode.classList.add('selected');
+        }
+
+        this.showAgentDetail(id);
     }
 
-    /**
-     * Highlighting SVG network connections relative to clicked agent
-     */
-    highlightNetworkLines(agentId) {
-        // Toggle connections dynamically for dramatic cinemática
-        this.dom.svgLines.forEach((line, index) => {
-            if (!line) return;
-            
-            // Randomly toggle line state relative to selection
-            const randomActive = (index + agentId.charCodeAt(agentId.length - 1)) % 2 === 0;
-            if (randomActive) {
-                line.classList.add('active');
-            } else {
-                line.classList.remove('active');
-            }
-        });
-    }
-
-    /**
-     * Updates and renders detail drawer pane
-     */
-    updateAgentDetails(agentId, focusTransition = false) {
-        if (!this.dom.detailContent) return;
-
+    showAgentDetail(agentId) {
         const agent = this.agents.find(a => a.id === agentId);
         if (!agent) return;
 
-        // Simulated fluctuant data
-        let liveLatency = agent.latency;
-        let liveMemory = agent.memory;
-        
-        if (this.isActive && agent.status !== 'error') {
-            // Apply slight fluctuant values to denote active diagnostic
-            liveLatency = Math.max(0.01, agent.latency + (Math.random() * 0.1 - 0.05));
-            liveMemory = Math.max(0.05, Math.min(0.99, agent.memory + (Math.random() * 0.04 - 0.02)));
-        }
+        const panel = document.getElementById('agent-detail-panel');
+        const content = document.getElementById('agent-detail-content');
 
-        const cleanMemPercent = Math.round(liveMemory * 100);
+        if (!panel || !content) return;
 
-        this.dom.detailContent.innerHTML = `
-            <div class="detail-card">
-                <span class="detail-card-label">IDENTIFIER</span>
-                <span class="detail-card-value">${agent.id.toUpperCase()}</span>
-            </div>
-            
-            <div class="detail-card">
-                <span class="detail-card-label">SYSTEM NAME</span>
-                <span class="detail-card-value">${agent.name.toUpperCase()}</span>
-            </div>
+        const statusClass = agent.status === 'active' ? 'green' : agent.status === 'error' ? 'red' : 'amber';
+        const memoryPercent = (agent.memory * 100).toFixed(1);
 
-            <div class="detail-card">
-                <span class="detail-card-label">OPERATING STATUS</span>
-                <span class="detail-card-value" style="color: ${agent.status === 'active' ? '#10B981' : agent.status === 'idle' ? '#F59E0B' : '#EF4444'}">
-                    ● ${agent.status.toUpperCase()}
-                </span>
-            </div>
-
-            <div class="detail-card">
-                <span class="detail-card-label">DIAGNOSTIC LATENCY</span>
-                <span class="detail-card-value">${agent.status === 'error' ? '--.--' : liveLatency.toFixed(4)} ms</span>
-            </div>
-
-            <div class="detail-card">
-                <span class="detail-card-label">ACTIVE EXECUTOR THREADS</span>
-                <span class="detail-card-value">${agent.threads} CORES</span>
-            </div>
-
-            <div class="detail-card">
-                <div class="metric-row">
-                    <span class="detail-card-label">BUFFER CAPACITY</span>
-                    <span class="detail-card-value" style="font-size: 0.8rem;">${cleanMemPercent}%</span>
+        content.innerHTML = `
+            <div class="agent-detail">
+                <div class="detail-section">
+                    <div class="detail-section-title">Información del Agente</div>
+                    <div class="detail-row">
+                        <span class="detail-label">ID</span>
+                        <span class="detail-value indigo">${agent.id.toUpperCase()}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Nombre</span>
+                        <span class="detail-value">${agent.name}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Rol</span>
+                        <span class="detail-value">${agent.role}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">ESTADO DE EJECUCIÓN</span>
+                        <span class="detail-value ${statusClass}">● ${agent.status === 'active' ? 'ACTIVO' : agent.status === 'error' ? 'FALLO' : 'INACTIVO'}</span>
+                    </div>
                 </div>
-                <div class="metric-bar-container">
-                    <div class="metric-bar-fill" style="width: ${cleanMemPercent}%; background-color: ${cleanMemPercent > 80 ? '#EF4444' : 'var(--accent-indigo)'}"></div>
+
+                <div class="detail-section">
+                    <div class="detail-section-title">Métricas de Rendimiento</div>
+                    <div class="detail-row">
+                        <span class="detail-label">LATENCIA DE RESPUESTA</span>
+                        <span class="detail-value">${agent.latency.toFixed(6)} ms</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Hilos Activos</span>
+                        <span class="detail-value indigo">${agent.threads}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">CAPACIDAD DEL BUFFER</span>
+                        <span class="detail-value">${memoryPercent}%</span>
+                    </div>
+                    <div class="memory-bar">
+                        <div class="memory-bar-fill" style="width: ${memoryPercent}%"></div>
+                    </div>
                 </div>
             </div>
         `;
+
+        panel.classList.add('open');
     }
 
-    /**
-     * Close diagnostic details drawer pane
-     */
-    closeAgentDetail() {
-        this.selectedAgentId = null;
-        this.dom.detailPanel.classList.remove('open');
-        this.renderAgentGrid();
-        
-        // Remove SVG line highlights
-        this.dom.svgLines.forEach(line => {
-            if (line) line.classList.remove('active');
+    closeDetailPanel() {
+        const panel = document.getElementById('agent-detail-panel');
+        if (panel) {
+            panel.classList.remove('open');
+        }
+
+        document.querySelectorAll('.agent-node').forEach(node => {
+            node.classList.remove('selected');
         });
 
-        this.pushLog({
-            category: 'agent',
-            level: 'info',
-            message: 'CONSOLE_CONTROLLER: Telemetry stream diagnostic closed. Returned to general cluster observation.'
-        });
+        this.selectedAgentId = null;
     }
 }
 
-// Instantiate and expose globally to window scope
-window.addEventListener('DOMContentLoaded', () => {
-    window.AntaresConsole = new AntaresConsoleController();
-    window.AntaresConsole.initialize();
+window.AntaresConsole = AntaresConsoleController;
+
+document.addEventListener('DOMContentLoaded', () => {
+    const console = new AntaresConsoleController();
+    console.initialize();
+    window.antaresConsoleInstance = console;
 });

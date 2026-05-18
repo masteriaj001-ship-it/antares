@@ -16,7 +16,6 @@
     </noscript>
 </head>
 <body>
-    <!-- Sidebar Offset (Compensador espacial global para encajar con el layout de la app) -->
     <aside class="sidebar-offset"></aside>
 
     <main class="main-container">
@@ -28,7 +27,17 @@
                         <circle cx="16" cy="18" r="4" fill="currentColor"/>
                     </svg>
                 </div>
-                <span class="system-label">OPERATIONAL CONSOLE</span>
+                <div class="title-block">
+                    <div class="title-row">
+                        <span class="system-label">SISTEMA: OPERACIONAL 🟢</span>
+                    </div>
+                    <div class="subtitle-row">
+                        <span class="console-title">CONSOLA OPERATIVA ANTARES</span>
+                    </div>
+                    <div class="security-row">
+                        <span class="security-subtitle">SISTEMA DE TELEMETRÍA DE GRADO MILITAR — ACCESO RESTRINGIDO</span>
+                    </div>
+                </div>
             </div>
 
             <div class="telemetry-center">
@@ -68,7 +77,7 @@
             <div class="telemetry-right">
                 <button class="control-btn" id="play-pause-btn" aria-label="Pausar simulación">
                     <span class="btn-icon">&#x275A;&#x275A;</span>
-                    <span class="btn-text">PAUSE</span>
+                    <span class="btn-text">[ PAUSAR MONITOREO ]</span>
                 </button>
             </div>
         </header>
@@ -89,17 +98,16 @@
                         <line x1="320" y1="60" x2="320" y2="240" class="network-line"/>
                     </svg>
                     <div class="agent-grid" id="agent-grid">
-                        <!-- Generado dinámicamente por JS en 3x3 -->
                     </div>
                 </div>
             </div>
 
             <div class="logger-panel">
                 <div class="panel-header">
-                    <h2 class="panel-title">LIVE OPERATIONAL LOG</h2>
+                    <h2 class="panel-title">REGISTRO DE OPERACIONES (MÁX. 50 LÍNEAS)</h2>
                     <span class="stream-indicator">
                         <span class="stream-dot"></span>
-                        STREAMING
+                        <span class="stream-status">TRANSMISIÓN EN VIVO</span>
                     </span>
                 </div>
                 <div class="terminal-container" id="terminal">
@@ -116,7 +124,7 @@
 
     <aside class="agent-detail-panel" id="agent-detail-panel">
         <div class="detail-header">
-            <h3 class="detail-title">AGENT TELEMETRY</h3>
+            <h3 class="detail-title">// DETALLES DEL AGENTE SELECCIONADO</h3>
             <button class="close-btn" id="close-detail" aria-label="Cerrar panel">
                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                     <path d="M5 5L15 15M5 15L15 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -129,7 +137,7 @@
                     <circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 4"/>
                     <circle cx="24" cy="24" r="8" fill="currentColor" opacity="0.3"/>
                 </svg>
-                <span>Seleccionar un agente</span>
+                <span>Esperando selección de agente...</span>
             </div>
         </div>
     </aside>
