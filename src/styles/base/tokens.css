@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syncopate:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syncopate:wght@400;700&display=swap');
 
 :root {
     /* Colors - ANTARES Dark Luxury Carbon & Gold Palette */
@@ -21,11 +21,14 @@
     --color-outline-variant: #5e5b4f;
     --color-border: rgba(197, 168, 128, 0.15);
 
-    /* Premium Brand Accent (Ditching generic Vercel Indigo) */
-    --accent-indigo: #C5A880; /* Mapped to Titanium Gold for maximum compatibility */
+    /* Premium Brand Accent (Titanium Gold) */
+    --accent-indigo: #C5A880;
     --accent-indigo-light: rgba(197, 168, 128, 0.15);
     --accent-indigo-glow: rgba(197, 168, 128, 0.08);
     --accent-indigo-shadow: rgba(197, 168, 128, 0.35);
+    
+    /* System Status */
+    --accent-green: #10B981;
 
     /* Backgrounds */
     --bg-primary: #0A0A0F;
@@ -35,6 +38,7 @@
     /* Typography */
     --font-main: 'Inter', sans-serif;
     --font-heading: 'Syncopate', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
 
     /* Motion */
     --easing-cinematic: cubic-bezier(0.16, 1, 0.3, 1);

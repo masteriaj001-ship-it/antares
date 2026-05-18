@@ -1,148 +1,148 @@
-# SPEC: Navbar ANTARES
-> Basada en el código real de: `src/styles/components/navbar.css` + `index.html`
-> Versión: 1.0 — Mayo 2026
+# SPEC: Navbar ANTARES (Industrial 3-Zone Layout)
+> Basada en el código refactorizado: `src/styles/components/navbar.css` + `index.html`
+> Versión: 2.0 — Mayo 2026
 
 ## Identidad del componente
-Navegación principal fija de ANTARES. Funciona como sistema operativo visual del sitio: guía sin distraer. En desktop funciona como barra simétrica con el logo centrado. En mobile, como drawer lateral derecho de 280px. Nunca es decorativa; siempre es táctica.
+Navbar rígido industrial de 3 zonas: Izquierda (Marca), Centro (Navegación Táctica), Derecha (Acceso de Control). Funciona como panel de control operacional. En desktop usa grid simétrico. En mobile, como drawer lateral derecho.
+
+---
+
+## Arquitectura de 3 Zonas
+
+### Zona Izquierda (Marca)
+- Logotipo `ANTARES` en Syncopate, peso 700, letter-spacing 0.2em
+- Micro-indicador dinámico: `[ SISTEMA: OPERACIONAL 🟢 ]` en 9px, JetBrains Mono
+
+### Zona Centro (Navegación Táctica)
+4 enlaces en mayúsculas con formato técnico:
+| Número | Enlace | Destino |
+|--------|--------|---------|
+| 01 | `// 01. INGENIERÍA` | `#ingenieria` |
+| 02 | `// 02. AUTOMATIZACIÓN` | `#automatizacion` |
+| 03 | `// 03. CONSULTORÍA` | `#consultoria` |
+| 04 | `// 04. INFRAESTRUCTURA` | `#infraestructura` |
+
+### Zona Derecha (Acceso de Control)
+Botón único brutalista: `[ INICIAR AUDITORÍA ]`
+- Enlace mailto: `mailto:auditoria@antares.engineering?subject=Solicitud de Auditoría Técnica - ANTARES`
+- Sin border-radius ( esquinas rectas )
+- Borde: `1px solid rgba(197, 168, 128, 0.4)`
+- Color oro titanio `#C5A880`
+- Hover: fondo oro `#C5A880`, texto `#080809`, sombra difusa
 
 ---
 
 ## Comportamiento esperado (Happy Path)
 
-### HP-01: Carga inicial — Mobile (< 768px)
+### HP-01: Layout Desktop (≥ 768px)
 ```gherkin
-DADO QUE el usuario visita la página en un dispositivo mobile
-CUANDO la página termina de cargar
-ENTONCES el navbar aparece fijo en la parte superior
-Y es visible el logotipo "ANTARES" a la izquierda (nav-brand-mobile)
-Y es visible el icono hamburguesa (3 líneas) a la derecha
-Y los enlaces de navegación NO son visibles (están dentro del drawer oculto)
-Y el drawer está desplazado fuera de pantalla con translateX(100%)
+DADO QUE el usuario visita en desktop
+ENTONCES el navbar usa grid de 3 columnas: [marca] [nav-center] [cta]
+Y la altura es 56px
+Y la navegación está centrada con la marca a la izquierda y el CTA a la derecha
 ```
 
-### HP-02: Apertura del drawer — Mobile
+### HP-02: Hover en Enlaces Centro
 ```gherkin
-DADO QUE el usuario está en mobile con el menú cerrado
-CUANDO hace clic en el icono hamburguesa
-ENTONCES el drawer lateral desliza desde la derecha con animación 600ms cubic-bezier(0.16, 1, 0.3, 1)
-Y el drawer tiene ancho fijo de 280px
-Y el drawer ocupa height: 100vh
-Y el fondo del drawer es #121315 con borde izquierdo 1px rgba(255,255,255,0.1)
-Y el icono hamburguesa se transforma en X (líneas rotan ±45deg)
-Y aparece un overlay oscuro detrás del drawer (rgba(18,19,21,0.8) + blur(8px))
+DADO QUE el usuario hace hover sobre los enlaces tácticos
+CUANDO el cursor pasa sobre el enlace
+ENTONCES la opacidad sube de 0.6 a 1.0
+Y el color transiciona a oro titanio #C5A880
+Y la transición dura 200ms con ease-out
+Y NO hay subrayado ni efectos decorativos
 ```
 
-### HP-03: Cierre del drawer — Mobile
+### HP-03: Botón de Auditoría
 ```gherkin
-DADO QUE el drawer mobile está abierto
-CUANDO el usuario hace clic en el icono X
-O hace clic en el overlay oscuro fuera del drawer
-ENTONCES el drawer se desliza hacia la derecha hasta desaparecer (600ms inverso)
-Y el icono vuelve al estado de hamburguesa
-Y el overlay desaparece
+DADO QUE el usuario está en desktop
+ENTONCES el botón "[ INICIAR AUDITORÍA ]" está a la derecha
+Y tiene bordes rectos (border-radius: 0)
+Y fondo transparente con borde oro titanio
+CUANDO hace hover
+ENTONCES el fondo se llena de oro y el texto se oscurece
+Y aparece sombra difusa: 0 0 10px rgba(197, 168, 128, 0.3)
 ```
 
-### HP-04: Navegación — Tablet (768px – 1199px)
-```gherkin
-DADO QUE el usuario está en tablet (viewport 768px–1199px)
-CUANDO la página carga
-ENTONCES el drawer mobile NO se usa
-Y el navbar tiene una altura fija de 48px
-Y el layout usa un grid de 3 columnas: [nav-left] [nav-center] [nav-right]
-Y los 4 enlaces están a los lados alineados horizontalmente en una sola fila continua
-Y el logotipo "ANTARES" está centrado en el medio
-Y el toggle hamburguesa NO es visible (display: none via .mobile-only)
-```
-
-### HP-05: Navegación — Desktop (≥ 1200px)
-```gherkin
-DADO QUE el usuario está en desktop (viewport ≥ 1200px)
-CUANDO la página carga
-ENTONCES el navbar tiene una altura fija de 48px
-Y el layout usa el mismo grid simétrico de 3 columnas
-Y la separación (gap) de los enlaces y paddings laterales aumentan (gap: 2.5rem, padding-lateral: 3rem)
-Y el logotipo "ANTARES" precedido de ॥ queda bloqueado en el centro del viewport
-```
-
-### HP-06: Hover sobre enlaces
-```gherkin
-DADO QUE el usuario está en tablet o desktop
-CUANDO hace hover sobre cualquier enlace de navegación
-ENTONCES la opacidad del enlace sube de 0.65 a 1.0
-Y aparece un fondo sutil rgba(255,255,255,0.05)
-Y la transición dura 300ms
-Y NO aparece subrayado ni animación de borde
-```
-
-### HP-07: Scroll con scroll hacia abajo
-```gherkin
-DADO QUE el usuario hace scroll hacia abajo en la página
-CUANDO el script de navbar detecta el evento scroll
-ENTONCES el navbar permanece fijo en la parte superior (position: fixed)
-Y el navbar puede ocultarse si el sistema scroll-hide está activo (class .hidden aplica translateY(-100%))
-Y la transición de ocultamiento es 400ms cubic-bezier(0.16, 1, 0.3, 1)
-```
-
----
-
-## Escenarios de error (Sad Path)
-
-### SP-01: Doble clic rápido en hamburguesa
+### HP-04: Mobile Drawer (< 768px)
 ```gherkin
 DADO QUE el usuario está en mobile
-CUANDO hace clic repetidamente y rápido en el icono del menú
-ENTONCES el estado final del drawer es consistente con el último clic
-Y la animación del drawer no produce glitches visuales (translateX solapado)
-Y la clase "open" en .navbar refleja el estado real del drawer
+ENTONCES el logo "ANTARES" aparece a la izquierda
+Y el hamburguesa aparece a la derecha
+Y el drawer se abre desde la derecha con translateX(100%)
+ENTONCES el drawer contiene:
+  - Marca ANTARES con indicador operacional
+  - Los 4 enlaces formateados en columna
+  - El botón "[ INICIAR AUDITORÍA ]" al final
 ```
 
-### SP-02: Redimensionamiento con drawer abierto
+### HP-05: Apertura/Cierre del Drawer
 ```gherkin
-DADO QUE el drawer mobile está abierto en viewport < 768px
-CUANDO el usuario redimensiona la ventana a ≥ 768px
-ENTONCES el drawer deja de ser relevante (position: static, transform: none)
-Y el navbar adopta automáticamente el layout tablet/desktop por CSS
-Y no quedan clases "open" residuales que afecten el layout desktop
+DADO QUE el drawer está cerrado en mobile
+CUANDO el usuario hace clic en el hamburguesa
+ENTONCES el drawer desliza desde la derecha (600ms cubic-bezier)
+Y el icono hamburguesa se transforma en X (±45deg)
+Y aparece overlay oscuro detrás
+CUANDO hace clic en X o en el overlay
+ENTONCES el drawer se cierra
 ```
 
-### SP-03: Sin JavaScript habilitado
+### HP-06: Scroll Status
 ```gherkin
-DADO QUE el navegador tiene JavaScript deshabilitado
-CUANDO el usuario carga la página en mobile
-ENTONCES el logo ANTARES es visible
-Y el toggle hamburguesa es visible pero no funcional
-Y la página es navegable via scroll sin necesidad del menú
-Y el contenido principal NO queda oculto permanentemente
+DADO QUE el navbar tiene la clase .scrolled
+ENTONCES el fondo se vuelve más opaco (rgba 0.9)
+Y el borde inferior aumenta opacidad (0.08)
 ```
 
 ---
 
-## Reglas de negocio
+## Especificaciones de Estilos
 
-### RB-01: Estructura de enlaces
-- Izquierda: SYSTEMS (`#sistemas`), OPERATIONS (`#operaciones`)
-- Centro: Logotipo ANTARES (link a `#inicio`)
-- Derecha: INTELLIGENCE (`#inteligencia`), CONTACT (`#contacto`)
-- Total: exactamente 4 enlaces + 1 logotipo
+### Variables CSS Requeridas
+```css
+--font-heading: 'Syncopate', sans-serif;
+--font-mono: 'JetBrains Mono', monospace;
+--font-main: 'Inter', sans-serif;
+--accent-green: #10B981;
+--color-primary: #C5A880;
+--color-text-muted: #c7c6b5;
+```
 
-### RB-02: Restricciones visuales absolutas
+### Transiciones Permitidas
+| Elemento | Propiedad | Duración | Easing |
+|----------|-----------|----------|--------|
+| Enlaces nav | opacity, color | 200ms | ease-out |
+| Botón audit | background, color, box-shadow | 200ms | ease-out |
+| Overlay | opacity, visibility | 400ms | ease-out |
+| Drawer | transform | 600ms | cubic-bezier(0.16, 1, 0.3, 1) |
+
+---
+
+## Reglas de Negocio
+
+### RB-01: Restricciones Visuales Absolutas
 - Sin subrayados animados en hover
-- Sin dropdowns o submenús en esta versión
-- Sin iconos junto a los enlaces de texto (excepto el ॥ decorativo del logo)
-- Sin animaciones de rebote, overshoot o spring en el drawer
-- La altura del drawer es siempre 100vh en mobile — NO tiene max-height reducido
+- Sin dropdowns o submenús
+- Sin border-radius en el botón de auditoría
+- El drawer en mobile usa la misma estructura de 3 zonas en columna
 
-### RB-03: Tipografía de marca
-- `.nav-brand` y `.nav-brand-mobile`: `Syncopate`, 14px, weight 700, letter-spacing 0.2em
-- `.navbar-links a`: `Inter`, 12px, weight 500, letter-spacing 0.15em, UPPERCASE
+### RB-02: Accesibilidad
+- El botón hamburguesa tiene `aria-expanded` actualizado por JS
+- `aria-label="Abrir menú"` / `"Cerrar menú"`
+- Todos los enlaces son focusables vía teclado
 
-### RB-04: Sidebar izquierdo (Desktop ≥ 1024px)
-- Existe un `.global-sidebar` fijo de 64px de ancho en el borde izquierdo
-- Contiene íconos de navegación secundaria
-- El hero compensa este espacio con `padding-left: 88px` (64px + 24px gap)
-- El navbar en desktop compensa con `padding-left: 64px`
+### RB-03: Tokens de Color
+- Usar `--accent-green: #10B981` para el indicador de estado
+- Usar `--color-primary: #C5A880` para elementos en oro titanio
+- Usar `--font-mono` para textos técnicos y micro-indicadores
 
-### RB-05: Accesibilidad
-- El botón hamburguesa tiene `aria-expanded="false/true"` actualizado por JS
-- El botón tiene `aria-label="Abrir menú"` / `"Cerrar menú"`
-- Todos los enlaces son focusables via teclado (elementos `<a>` nativos)
+---
+
+## Reglas de Negocio (Anteriores - Obsoletas)
+
+### RB-04 (Obsoleto): Sidebar Izquierdo
+- El `.global-sidebar` de 64px sigue existiendo en desktop ≥ 1024px
+- El navbar compensa con `padding-left: 64px`
+
+### RB-05 (Obsoleto): Estructura Anterior
+- La estructura de 2 enlaces izquierda + 2 derecha + logo centro ya no aplica
+- Nueva estructura: 4 enlaces centrados + marca izquierda + CTA derecha
