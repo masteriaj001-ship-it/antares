@@ -13,13 +13,13 @@ DADO QUE el viewport es ≥ 1024px
 ENTONCES el FAQ tiene grid:
   - grid-template-columns: 1fr 1.2fr
   - gap: var(--space-8)
-Y la columna izquierda contiene:
-  - Título "Preguntas Frecuentes" (font: var(--font-heading))
+  - align-items: center
+Y la columna izquierda (.faq-sidebar) contiene:
+  - Título "Preguntas Frecuentes" (font: var(--font-heading), size: clamp(2rem, 4vw, 3.5rem), text-wrap: balance)
   - Subtítulo descriptivo (max-width: 400px)
-  - Card CTA con mailto:contacto@antares.soft
-Y la columna derecha contiene el acordeón
+  - Card CTA con mailto:contacto@antares.soft (text-align: center)
+Y la columna derecha (.faq-accordion) contiene el acordeón
   - max-width: 600px
-  - margin-left: auto
 ```
 
 ### HP-02: Layout 1 columna (mobile/tablet < 1024px)
@@ -119,7 +119,7 @@ ENTONCES NO lanza error en consola
 ### RB-03: Tipografía
 | Elemento | Fuente | Peso | Tamaño |
 |---|---|---|---|
-| Título | Syncopate | 700 | clamp(1.5rem, 3vw, 2.5rem) |
+| Título | Syncopate | 700 | clamp(2rem, 4vw, 3.5rem) |
 | Subtítulo | Inter | 400 | 1rem |
 | Pregunta | Inter | 600 | 1rem |
 | Respuesta | Inter | 400 | 0.9375rem |
